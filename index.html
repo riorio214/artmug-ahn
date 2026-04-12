@@ -1,236 +1,813 @@
-<!-- 탭 라디오버튼 -->
-<input type="radio" name="atab" id="atab1" style="display:none;" checked>
-<input type="radio" name="atab" id="atab2" style="display:none;">
-<input type="radio" name="atab" id="atab3" style="display:none;">
-
-<!-- 탭 활성화 CSS (인라인 style 태그) -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아트머그 프로필</title>
 <style>
-#atab1:checked ~ div > label[for="atab1"],
-#atab2:checked ~ div > label[for="atab2"],
-#atab3:checked ~ div > label[for="atab3"] {
-  background: #f8a4c8 !important;
-  color: #fff !important;
-  border-color: #f8a4c8 !important;
+/* ── 폰트 ── */
+@font-face { font-family: 'Paperlogy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+
+/* ── 변수 ── */
+:root {
+  --pink-light:  #fff0f7;
+  --pink-mid:    #fce4f1;
+  --pink-main:   #f8a4c8;
+  --pink-deep:   #e86cac;
+  --pink-dark:   #d472a0;
+  --text-main:   #333;
+  --text-muted:  #888;
+  --border:      #f9c8e4;
 }
-#atab1:checked ~ div ~ div > #ac1 { display:flex !important; }
-#atab2:checked ~ div ~ div > #ac2 { display:flex !important; }
-#atab3:checked ~ div ~ div > #ac3 { display:flex !important; }
+
+/* ── 기본 ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Paperlogy', 'Apple SD Gothic Neo', sans-serif;
+  background: #fff;
+  color: var(--text-main);
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 40px 20px; }
+section { margin-bottom: 56px; }
+
+/* ── 섹션 타이틀 ── */
+.section-title {
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--pink-deep);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::before {
+  content: '';
+  width: 4px; height: 22px;
+  background: var(--pink-main);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── 프로필 카드 ── */
+.profile-card {
+  background: var(--pink-light);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.profile-avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: var(--pink-mid);
+  border: 3px solid var(--pink-main);
+  object-fit: cover;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+.profile-info { flex: 1; }
+.profile-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--pink-deep);
+  margin-bottom: 6px;
+}
+.profile-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 11px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--pink-mid);
+  color: var(--pink-dark);
+  font-weight: 700;
+}
+
+/* ── 안내사항 카드 ── */
+.notice-card {
+  background: var(--pink-light);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+}
+.notice-card ul { list-style: none; }
+.notice-card li {
+  font-size: 13px;
+  color: #555;
+  padding: 7px 0 7px 20px;
+  border-bottom: 1px dotted var(--border);
+  position: relative;
+  line-height: 1.6;
+}
+.notice-card li:last-child { border-bottom: none; }
+.notice-card li::before {
+  content: '♡';
+  position: absolute;
+  left: 0; top: 8px;
+  color: var(--pink-main);
+  font-size: 10px;
+}
+
+/* ── 패키지 — 메뉴판 스타일 ── */
+.menu-board {
+  background: #fff9fb;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.menu-board-header {
+  background: var(--pink-main);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.menu-board-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.menu-deco { color: rgba(255,255,255,0.7); font-size: 14px; }
+.menu-section { padding: 0 28px; }
+.menu-section-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--pink-main);
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 18px 0 10px;
+  position: relative;
+}
+.menu-section-title::before,
+.menu-section-title::after {
+  content: '— ';
+  color: var(--border);
+}
+.menu-section-title::after { content: ' —'; }
+.menu-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  gap: 8px;
+}
+.menu-row:last-child { border-bottom: none; }
+.menu-row-left { flex: 1; }
+.menu-item-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+.menu-item-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.menu-item-dots {
+  flex: 1;
+  border-bottom: 1px dotted #ddd;
+  margin: 0 8px 4px;
+  min-width: 20px;
+}
+.menu-item-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pink-deep);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 28px;
+}
+.menu-footer {
+  text-align: center;
+  padding: 14px 28px 20px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── 포트폴리오 탭 ── */
+.pf-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.pf-tab {
+  padding: 7px 18px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  border-radius: 999px;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pink-dark);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.pf-tab.active, .pf-tab:hover {
+  background: var(--pink-main);
+  color: #fff;
+  border-color: var(--pink-main);
+}
+
+/* ── 포트폴리오 그리드 ── */
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.pf-item { cursor: pointer; }
+.pf-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--pink-mid);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  position: relative;
+  margin-bottom: 6px;
+}
+.pf-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.pf-item:hover .pf-thumb img { transform: scale(1.05); }
+.pf-cat-label {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(248,164,200,0.85);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.pf-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 페이지네이션 ── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.pg-btn, .pg-num {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  border-radius: 8px;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pink-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.pg-num.active, .pg-btn:hover, .pg-num:hover {
+  background: var(--pink-main);
+  color: #fff;
+  border-color: var(--pink-main);
+}
+
+/* ── 문의 양식 — 편지지 스타일 ── */
+.letter-wrap {
+  position: relative;
+}
+/* 편지지 상단 뜯린 부분 */
+.letter-top {
+  width: 100%;
+  height: 20px;
+  background: var(--pink-main);
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.letter-hole {
+  width: 8px; height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+}
+/* 편지지 본문 */
+.letter-body {
+  background: #fffcfe;
+  border: 1.5px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  padding: 32px 32px 28px;
+  /* 편지지 줄 배경 */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    #fce4f1 31px,
+    #fce4f1 32px
+  );
+  background-attachment: local;
+}
+.letter-greeting {
+  font-size: 13px;
+  color: var(--pink-dark);
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px dashed var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* 편지지 각 항목 */
+.letter-field {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.letter-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--pink-main);
+  letter-spacing: 1px;
+}
+.letter-input, .letter-select, .letter-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  border-radius: 0;
+  padding: 6px 4px;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 13px;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.letter-input:focus, .letter-select:focus, .letter-textarea:focus {
+  border-bottom-color: var(--pink-main);
+}
+.letter-textarea { resize: vertical; min-height: 72px; line-height: 2; }
+.letter-select { cursor: pointer; }
+/* 편지 끝 인사 */
+.letter-closing {
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1.5px dashed var(--border);
+  font-style: italic;
+}
+/* 복사 버튼 */
+.copy-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+}
+.copy-btn {
+  background: var(--pink-main);
+  color: #fff;
+  border: none;
+  padding: 13px 44px;
+  border-radius: 999px;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 14px rgba(248,164,200,0.35);
+  letter-spacing: 0.5px;
+}
+.copy-btn:hover { background: var(--pink-deep); }
+.copy-toast {
+  position: absolute;
+  top: -42px; left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+.copy-toast.show { opacity: 1; top: -48px; }
+
+/* ── 반응형 ── */
+@media (max-width: 600px) {
+  .profile-card { flex-direction: column; text-align: center; }
+  .tag-wrap { justify-content: center; }
+  .package-grid { grid-template-columns: 1fr; }
+  .pf-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-item.full, .copy-wrap { grid-column: span 1; }
+}
+@media (max-width: 380px) {
+  .pf-grid { grid-template-columns: 1fr; }
+}
 </style>
+</head>
+<body>
+<div class="container">
 
-<!-- 리모콘 탭 버튼 -->
-<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
-  <label for="atab1" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">🏠 소개</label>
-  <label for="atab2" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">🎨 포트폴리오</label>
-  <label for="atab3" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">✉️ 문의하기</label>
-</div>
-
-<!-- 탭 콘텐츠 영역 -->
-<div>
-
-  <!-- ===== TAB 1 : 소개 ===== -->
-  <div id="ac1" style="display:flex;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
-
-    <!-- 척추 -->
-    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">PROFILE</span>
-    </div>
-
-    <!-- 왼쪽 페이지 : 자기소개 -->
-    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 작가 소개</div>
-
-      <!-- ★ 작가 이름 수정 -->
-      <div style="font-size:15px;font-weight:bold;color:#e86cac;margin-bottom:6px;">✦ 닉네임 작가</div>
-
-      <!-- ★ 자기소개 수정 -->
-      <div style="font-size:12px;color:#666;line-height:1.8;">
-        안녕하세요! 귀엽고 아기자기한 그림을 그리는 작가입니다 🌸<br>
-        일러스트, 버추얼, 캐릭터 디자인을 주로 작업합니다.<br><br>
-        한 분 한 분의 의뢰를 소중히 생각하며<br>
-        완성도 높은 작업물을 약속드려요 ♡
-      </div>
-
-      <!-- ★ 태그 수정 -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
-        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">일러스트</span>
-        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">캐릭터 디자인</span>
-        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">버추얼</span>
-        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">SD 캐릭터</span>
-        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">이모티콘</span>
+  <!-- ============================
+    SECTION 1 : 프로필
+  ============================= -->
+  <section>
+    <div class="section-title">프로필</div>
+    <div class="profile-card">
+      <!-- 프로필 이미지: src에 이미지 URL 넣거나, 이모지 그대로 두세요 -->
+      <div class="profile-avatar">🌸</div>
+      <div class="profile-info">
+        <!-- ★ 닉네임 수정 -->
+        <div class="profile-name">닉네임 작가</div>
+        <!-- ★ 소개 문구 수정 -->
+        <div class="profile-desc">
+          안녕하세요! 귀엽고 아기자기한 그림을 그리는 작가입니다 🌸<br>
+          일러스트, 버추얼, 캐릭터 디자인을 주로 작업합니다.
+        </div>
+        <!-- ★ 태그 수정/추가/삭제 -->
+        <div class="tag-wrap">
+          <span class="tag">일러스트</span>
+          <span class="tag">캐릭터 디자인</span>
+          <span class="tag">버추얼</span>
+          <span class="tag">SD 캐릭터</span>
+          <span class="tag">이모티콘</span>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- 오른쪽 페이지 : 작업 안내 -->
-    <div style="flex:1;padding:20px 18px;background:#fffafd;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 작업 안내</div>
-      <ul style="list-style:none;padding:0;margin:0;">
-        <!-- ★ 안내 내용 수정 -->
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 기간은 의뢰 후 협의로 결정됩니다</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>스케치 수정 2회 / 채색 후 수정 1회 포함</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>상업적 이용은 별도 금액이 발생합니다</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>레퍼런스를 첨부해 주시면 소통이 원활해요</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 현황은 SNS에서 실시간 확인 가능해요</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>완성 후 원본 파일(PSD)은 제공되지 않아요</li>
+
+  <!-- ============================
+    SECTION 2 : 안내사항
+  ============================= -->
+  <section>
+    <div class="section-title">안내사항</div>
+    <div class="notice-card">
+      <ul>
+        <!-- ★ 안내사항 수정/추가/삭제 -->
+        <li>모든 저작물의 저작권은 저에게 있습니다. 2차 수정 및 무단 배포를 금지합니다.</li>
+        <li>작업 기간은 의뢰 후 협의로 결정됩니다.</li>
+        <li>스케치 수정 2회 / 채색 후 수정 1회가 포함됩니다.</li>
+        <li>상업적 이용은 별도 금액이 발생합니다.</li>
+        <li>레퍼런스를 첨부해 주시면 소통이 훨씬 원활해요!</li>
+        <li>완성 후 원본 파일(PSD)은 제공되지 않습니다.</li>
+        <li>급한 작업은 추가 금액이 발생할 수 있습니다.</li>
       </ul>
-      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.1 —</div>
     </div>
+  </section>
 
-  </div>
 
-  <!-- ===== TAB 2 : 포트폴리오 ===== -->
-  <div id="ac2" style="display:none;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
+  <section>
+    <div class="section-title">가격 안내</div>
+    <div class="menu-board">
 
-    <!-- 척추 -->
-    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">PORTFOLIO</span>
-    </div>
-
-    <!-- 왼쪽 페이지 : 포트폴리오 이미지 -->
-    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 포트폴리오</div>
-
-      <!-- ★ 이미지 그리드 (이미지 URL을 src에 넣으세요) -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <!-- ★ 이미지 URL 수정: src="" 안에 이미지 주소 입력 -->
-          <img src="" alt="캐릭터" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">캐릭터</div>
-        </div>
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <img src="" alt="일러스트" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">일러스트</div>
-        </div>
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <img src="" alt="버추얼" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">버추얼</div>
-        </div>
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <img src="" alt="SD" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">SD</div>
-        </div>
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <img src="" alt="이모티콘" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">이모티콘</div>
-        </div>
-
-        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
-          <img src="" alt="기타" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
-          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">기타</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 오른쪽 페이지 : 가격표 -->
-    <div style="flex:1;padding:20px 18px;background:#fffafd;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 가격 안내</div>
-
-      <!-- ★ 가격표 수정 -->
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr>
-            <th style="background:#fce4f1;color:#d472a0;padding:7px 10px;font-size:11px;font-weight:bold;border-bottom:1.5px solid #f9c8e4;text-align:left;">종류</th>
-            <th style="background:#fce4f1;color:#d472a0;padding:7px 10px;font-size:11px;font-weight:bold;border-bottom:1.5px solid #f9c8e4;text-align:right;">금액</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">반신 (채색)</td>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">30,000원~</span></td>
-          </tr>
-          <tr>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">전신 (채색)</td>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">50,000원~</span></td>
-          </tr>
-          <tr>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">SD 캐릭터</td>
-            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">25,000원~</span></td>
-          </tr>
-          <tr>
-            <td style="padding:7px 10px;color:#444;">이모티콘 1종</td>
-            <td style="padding:7px 10px;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">협의</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.2 —</div>
-    </div>
-
-  </div>
-
-  <!-- ===== TAB 3 : 문의하기 ===== -->
-  <div id="ac3" style="display:none;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
-
-    <!-- 척추 -->
-    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">CONTACT</span>
-    </div>
-
-    <!-- 왼쪽 페이지 : 문의 양식 -->
-    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 문의 양식</div>
-
-      <div style="margin-bottom:12px;">
-        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">닉네임 *</label>
-        <input type="text" placeholder="닉네임을 입력해주세요" style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;">
+      <!-- 메뉴판 헤더 -->
+      <div class="menu-board-header">
+        <span class="menu-deco">✦</span>
+        <span class="menu-board-title">PRICE MENU</span>
+        <span class="menu-deco">✦</span>
       </div>
 
-      <div style="margin-bottom:12px;">
-        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">의뢰 종류 *</label>
-        <select style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;">
-          <option value="">-- 선택해주세요 --</option>
-          <!-- ★ 본인 작업 종류에 맞게 수정 -->
-          <option>일러스트 (개인소장용)</option>
-          <option>일러스트 (상업용)</option>
-          <option>버추얼 / Live2D</option>
-          <option>SD 캐릭터</option>
-          <option>이모티콘</option>
-          <option>기타 (문의)</option>
-        </select>
+      <!-- ★ 카테고리 1 -->
+      <div class="menu-section">
+        <div class="menu-section-title">ILLUST</div>
+
+        <!-- ★ 메뉴 항목: 복붙해서 늘릴 수 있어요 -->
+        <div class="menu-row">
+          <div class="menu-row-left">
+            <div class="menu-item-name">반신 (채색)</div>
+            <div class="menu-item-desc">배경 단색 포함 · 수정 2회</div>
+          </div>
+          <div class="menu-item-dots"></div>
+          <div class="menu-item-price">30,000원~</div>
+        </div>
+
+        <div class="menu-row">
+          <div class="menu-row-left">
+            <div class="menu-item-name">전신 (채색)</div>
+            <div class="menu-item-desc">배경 일러스트 포함 · 수정 2회</div>
+          </div>
+          <div class="menu-item-dots"></div>
+          <div class="menu-item-price">50,000원~</div>
+        </div>
+
+        <div class="menu-row">
+          <div class="menu-row-left">
+            <div class="menu-item-name">전신 프리미엄</div>
+            <div class="menu-item-desc">상세 배경 포함 · 수정 3회</div>
+          </div>
+          <div class="menu-item-dots"></div>
+          <div class="menu-item-price">80,000원~</div>
+        </div>
       </div>
 
-      <div style="margin-bottom:12px;">
-        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">문의 내용 *</label>
-        <textarea placeholder="의뢰 내용을 자세히 적어주세요 ♡&#10;&#10;예시)&#10;- 캐릭터 설명&#10;- 원하는 분위기/포즈&#10;- 레퍼런스 이미지 URL&#10;- 납기 희망일" style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;resize:vertical;min-height:80px;"></textarea>
+      <div class="menu-divider"></div>
+
+      <!-- ★ 카테고리 2 -->
+      <div class="menu-section">
+        <div class="menu-section-title">CHARACTER</div>
+
+        <div class="menu-row">
+          <div class="menu-row-left">
+            <div class="menu-item-name">SD 캐릭터</div>
+            <div class="menu-item-desc">귀여운 SD 전신 · 수정 2회</div>
+          </div>
+          <div class="menu-item-dots"></div>
+          <div class="menu-item-price">25,000원~</div>
+        </div>
+
+        <div class="menu-row">
+          <div class="menu-row-left">
+            <div class="menu-item-name">이모티콘</div>
+            <div class="menu-item-desc">개수·용도에 따라 협의</div>
+          </div>
+          <div class="menu-item-dots"></div>
+          <div class="menu-item-price">협의</div>
+        </div>
       </div>
 
-      <div style="background:#fff0f7;border:1.5px solid #f9c8e4;border-radius:10px;padding:10px 12px;font-size:11px;color:#d472a0;text-align:center;line-height:1.7;">
-        📮 위 내용을 복사하여<br>
-        <strong>아트머그 쪽지</strong>로 보내주세요 ♡
+      <div class="menu-footer">
+        ✦ 상업적 이용은 추가 금액이 발생합니다 · 자세한 견적은 문의 부탁드려요 ✦
       </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+    SECTION 4 : 포트폴리오
+  ============================= -->
+  <section>
+    <div class="section-title">포트폴리오</div>
+
+    <!-- ★ 탭 버튼 — filterCategory('카테고리명') 맞춰서 수정 -->
+    <div class="pf-tabs">
+      <button class="pf-tab active" onclick="filterCat('ALL')">ALL</button>
+      <button class="pf-tab" onclick="filterCat('일러스트')">일러스트</button>
+      <button class="pf-tab" onclick="filterCat('캐릭터')">캐릭터</button>
+      <button class="pf-tab" onclick="filterCat('버추얼')">버추얼</button>
+      <button class="pf-tab" onclick="filterCat('SD')">SD</button>
+      <button class="pf-tab" onclick="filterCat('이모티콘')">이모티콘</button>
     </div>
 
-    <!-- 오른쪽 페이지 : 주의사항 -->
-    <div style="flex:1;padding:20px 18px;background:#fffafd;">
-      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 문의 전 꼭 읽어주세요</div>
-      <ul style="list-style:none;padding:0;margin:0;">
-        <!-- ★ 주의사항 수정 -->
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>문의는 아트머그 쪽지로만 받습니다</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>레퍼런스는 최대한 구체적으로 부탁드려요</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>급한 작업은 추가 금액이 발생할 수 있어요</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 기간 중 수정 요청은 최소화 부탁드립니다</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>답장은 평일 기준 1~2일 내로 드립니다</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>의뢰 거절 사유는 별도 안내드리지 않아요</li>
-        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>완성 후 추가 수정은 별도 비용이 발생해요</li>
-      </ul>
+    <div class="pf-grid" id="pfGrid"></div>
 
-      <div style="border:none;border-top:1.5px dashed #f9c8e4;margin:14px 0;"></div>
+    <div class="pagination">
+      <button class="pg-btn" onclick="changePg(curPage - 1)">&#8249;</button>
+      <div id="pgNums" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;"></div>
+      <button class="pg-btn" onclick="changePg(curPage + 1)">&#8250;</button>
+    </div>
+  </section>
 
-      <!-- ★ SNS 링크 수정 -->
-      <div style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:6px;">✦ SNS</div>
-      <div style="font-size:11.5px;color:#666;">
-        트위터 : <a href="https://twitter.com/" style="color:#e86cac;">@닉네임</a><br>
-        인스타 : <a href="https://instagram.com/" style="color:#e86cac;">@닉네임</a>
+
+  <!-- ============================
+    SECTION 5 : 문의 양식
+  ============================= -->
+  <section>
+    <div class="section-title">문의 양식</div>
+    <div class="letter-wrap">
+
+      <!-- 편지지 상단 핀 장식 -->
+      <div class="letter-top">
+        <div class="letter-hole"></div>
+        <div class="letter-hole"></div>
+        <div class="letter-hole"></div>
       </div>
 
-      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.3 —</div>
-    </div>
+      <!-- 편지지 본문 -->
+      <div class="letter-body">
 
-  </div>
+        <div class="letter-greeting">
+          🌸 안녕하세요! 의뢰 내용을 작성 후 복사해서 쪽지로 보내주세요 ♡
+        </div>
 
-</div>
+        <div class="letter-field">
+          <div class="letter-label">TO. 작가님께</div>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">01 · 닉네임</label>
+          <input class="letter-input" id="fm_nick" type="text" placeholder="닉네임을 적어주세요">
+        </div>
+
+        <!-- ★ 의뢰 종류 수정 -->
+        <div class="letter-field">
+          <label class="letter-label">02 · 의뢰 종류</label>
+          <select class="letter-select" id="fm_type">
+            <option value="">-- 선택해주세요 --</option>
+            <option>일러스트 (개인소장)</option>
+            <option>일러스트 (상업용)</option>
+            <option>버추얼 / Live2D</option>
+            <option>SD 캐릭터</option>
+            <option>이모티콘</option>
+            <option>기타 (문의)</option>
+          </select>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">03 · 콘셉트 / 레퍼런스</label>
+          <textarea class="letter-textarea" id="fm_concept" placeholder="원하시는 분위기, 레퍼런스 URL 등을 자유롭게 적어주세요 ♡"></textarea>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">04 · 캐릭터 설명</label>
+          <textarea class="letter-textarea" id="fm_chara" placeholder="캐릭터 외형, 복장, 헤어컬러 등을 자세히 알려주세요"></textarea>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">05 · 그 외 요청사항</label>
+          <textarea class="letter-textarea" id="fm_extra" placeholder="기타 요청이나 궁금한 점을 자유롭게 적어주세요"></textarea>
+        </div>
+
+        <div class="letter-closing">
+          From. 의뢰인 드림 🌸
+        </div>
+
+      </div><!-- /letter-body -->
+
+      <div class="copy-wrap">
+        <div class="copy-toast" id="copyToast">📋 복사 완료!</div>
+        <button class="copy-btn" onclick="copyForm()">✉️ 문의 내용 복사하기</button>
+      </div>
+
+    </div><!-- /letter-wrap -->
+  </section>
+
+</div><!-- /container -->
+
+
+<script>
+/* ============================
+  iframe 높이 자동 조절
+  (아트머그 부모 페이지에 높이 전달)
+============================= */
+function sendHeight() {
+  window.parent.postMessage({ type: 'resize', height: document.documentElement.scrollHeight }, '*');
+}
+window.addEventListener('load', sendHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(sendHeight).observe(document.body);
+} else {
+  new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true });
+}
+
+/* ============================
+  이미지 라이트박스
+  (아트머그 부모 페이지에 요청)
+============================= */
+function openLightbox(src) {
+  window.parent.postMessage({ type: 'openLightbox', src: src }, '*');
+}
+
+
+/* ============================
+  포트폴리오 데이터
+  ★ 여기에 직접 작품을 추가하세요!
+  형식: { cat: '카테고리', title: '제목', img: '이미지URL' }
+============================= */
+const pfData = [
+  /* ── 예시 데이터 (실제 이미지 URL로 교체하세요) ──
+  { cat: '일러스트', title: '봄 일러스트',   img: 'https://이미지주소.jpg' },
+  { cat: '캐릭터',   title: '오리지널 캐릭터', img: 'https://이미지주소.jpg' },
+  { cat: 'SD',       title: 'SD 캐릭터',      img: 'https://이미지주소.jpg' },
+  */
+
+  /* ── 실제 데이터를 아래에 추가해 주세요 ── */
+];
+
+let curCat  = 'ALL';
+let curPage = 1;
+const perPage = 9;
+
+function filterCat(cat) {
+  curCat  = cat;
+  curPage = 1;
+  document.querySelectorAll('.pf-tab').forEach(b => {
+    b.classList.toggle('active', b.textContent === cat);
+  });
+  renderPf();
+}
+
+function renderPf() {
+  const grid    = document.getElementById('pfGrid');
+  const pgNums  = document.getElementById('pgNums');
+  const filtered = curCat === 'ALL' ? pfData : pfData.filter(i => i.cat === curCat);
+  const total    = Math.ceil(filtered.length / perPage) || 1;
+  const paged    = filtered.slice((curPage - 1) * perPage, curPage * perPage);
+
+  if (pfData.length === 0) {
+    grid.innerHTML = '<div style="grid-column:span 3;text-align:center;padding:60px 0;color:#ccc;font-size:14px;">작품을 추가해 주세요 🌸</div>';
+  } else {
+    grid.innerHTML = paged.map(i => `
+      <div class="pf-item" onclick="openLightbox('${i.img}')">
+        <div class="pf-thumb">
+          <div class="pf-cat-label">${i.cat}</div>
+          <img src="${i.img}" alt="${i.title}" loading="lazy">
+        </div>
+        <div class="pf-title">${i.title}</div>
+      </div>
+    `).join('');
+
+    /* 빈 칸 채우기 (그리드 정렬용) */
+    const rest = perPage - paged.length;
+    for (let i = 0; i < rest; i++) {
+      grid.innerHTML += '<div class="pf-item" style="visibility:hidden;"><div class="pf-thumb"></div></div>';
+    }
+  }
+
+  /* 페이지 번호 */
+  pgNums.innerHTML = '';
+  for (let i = 1; i <= total; i++) {
+    pgNums.innerHTML += `<div class="pg-num ${i === curPage ? 'active' : ''}" onclick="changePg(${i})">${i}</div>`;
+  }
+}
+
+function changePg(p) {
+  const filtered = curCat === 'ALL' ? pfData : pfData.filter(i => i.cat === curCat);
+  const total    = Math.ceil(filtered.length / perPage) || 1;
+  if (p < 1 || p > total) return;
+  curPage = p;
+  renderPf();
+}
+
+renderPf();
+
+
+/* ============================
+  문의 양식 복사
+============================= */
+async function copyForm() {
+  const nick    = document.getElementById('fm_nick').value    || '없음';
+  const type    = document.getElementById('fm_type').value    || '없음';
+  const concept = document.getElementById('fm_concept').value || '없음';
+  const chara   = document.getElementById('fm_chara').value   || '없음';
+  const extra   = document.getElementById('fm_extra').value   || '없음';
+
+  const text = `[문의 양식]
+
+1. 닉네임: ${nick}
+2. 의뢰 종류: ${type}
+3. 콘셉트/레퍼런스: 
+${concept}
+4. 캐릭터 설명: 
+${chara}
+5. 그 외 요청사항: 
+${extra}`;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  } catch (e) {
+    alert('복사가 차단되었습니다.\niframe에 allow="clipboard-write" 속성을 추가해주세요.');
+  }
+}
+</script>
+
+</body>
+</html>
