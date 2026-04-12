@@ -1,1 +1,237 @@
 
+<!-- 탭 라디오버튼 -->
+<input type="radio" name="atab" id="atab1" style="display:none;" checked>
+<input type="radio" name="atab" id="atab2" style="display:none;">
+<input type="radio" name="atab" id="atab3" style="display:none;">
+
+<!-- 탭 활성화 CSS (인라인 style 태그) -->
+<style>
+#atab1:checked ~ div > label[for="atab1"],
+#atab2:checked ~ div > label[for="atab2"],
+#atab3:checked ~ div > label[for="atab3"] {
+  background: #f8a4c8 !important;
+  color: #fff !important;
+  border-color: #f8a4c8 !important;
+}
+#atab1:checked ~ div ~ div > #ac1 { display:flex !important; }
+#atab2:checked ~ div ~ div > #ac2 { display:flex !important; }
+#atab3:checked ~ div ~ div > #ac3 { display:flex !important; }
+</style>
+
+<!-- 리모콘 탭 버튼 -->
+<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+  <label for="atab1" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">🏠 소개</label>
+  <label for="atab2" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">🎨 포트폴리오</label>
+  <label for="atab3" style="cursor:pointer;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:bold;border:2px solid #f8a4c8;color:#e86cac;background:#fff0f7;display:inline-block;">✉️ 문의하기</label>
+</div>
+
+<!-- 탭 콘텐츠 영역 -->
+<div>
+
+  <!-- ===== TAB 1 : 소개 ===== -->
+  <div id="ac1" style="display:flex;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
+
+    <!-- 척추 -->
+    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">PROFILE</span>
+    </div>
+
+    <!-- 왼쪽 페이지 : 자기소개 -->
+    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 작가 소개</div>
+
+      <!-- ★ 작가 이름 수정 -->
+      <div style="font-size:15px;font-weight:bold;color:#e86cac;margin-bottom:6px;">✦ 닉네임 작가</div>
+
+      <!-- ★ 자기소개 수정 -->
+      <div style="font-size:12px;color:#666;line-height:1.8;">
+        안녕하세요! 귀엽고 아기자기한 그림을 그리는 작가입니다 🌸<br>
+        일러스트, 버추얼, 캐릭터 디자인을 주로 작업합니다.<br><br>
+        한 분 한 분의 의뢰를 소중히 생각하며<br>
+        완성도 높은 작업물을 약속드려요 ♡
+      </div>
+
+      <!-- ★ 태그 수정 -->
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">일러스트</span>
+        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">캐릭터 디자인</span>
+        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">버추얼</span>
+        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">SD 캐릭터</span>
+        <span style="font-size:11px;padding:3px 12px;border-radius:999px;background:#fce4f1;color:#d472a0;font-weight:bold;">이모티콘</span>
+      </div>
+    </div>
+
+    <!-- 오른쪽 페이지 : 작업 안내 -->
+    <div style="flex:1;padding:20px 18px;background:#fffafd;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 작업 안내</div>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <!-- ★ 안내 내용 수정 -->
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 기간은 의뢰 후 협의로 결정됩니다</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>스케치 수정 2회 / 채색 후 수정 1회 포함</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>상업적 이용은 별도 금액이 발생합니다</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>레퍼런스를 첨부해 주시면 소통이 원활해요</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 현황은 SNS에서 실시간 확인 가능해요</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>완성 후 원본 파일(PSD)은 제공되지 않아요</li>
+      </ul>
+      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.1 —</div>
+    </div>
+
+  </div>
+
+  <!-- ===== TAB 2 : 포트폴리오 ===== -->
+  <div id="ac2" style="display:none;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
+
+    <!-- 척추 -->
+    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">PORTFOLIO</span>
+    </div>
+
+    <!-- 왼쪽 페이지 : 포트폴리오 이미지 -->
+    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 포트폴리오</div>
+
+      <!-- ★ 이미지 그리드 (이미지 URL을 src에 넣으세요) -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <!-- ★ 이미지 URL 수정: src="" 안에 이미지 주소 입력 -->
+          <img src="" alt="캐릭터" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">캐릭터</div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <img src="" alt="일러스트" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">일러스트</div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <img src="" alt="버추얼" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">버추얼</div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <img src="" alt="SD" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">SD</div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <img src="" alt="이모티콘" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">이모티콘</div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #f9c8e4;background:#fff0f7;">
+          <img src="" alt="기타" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#fce4f1;">
+          <div style="font-size:10px;text-align:center;padding:5px 4px;color:#d472a0;font-weight:bold;">기타</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 오른쪽 페이지 : 가격표 -->
+    <div style="flex:1;padding:20px 18px;background:#fffafd;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 가격 안내</div>
+
+      <!-- ★ 가격표 수정 -->
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr>
+            <th style="background:#fce4f1;color:#d472a0;padding:7px 10px;font-size:11px;font-weight:bold;border-bottom:1.5px solid #f9c8e4;text-align:left;">종류</th>
+            <th style="background:#fce4f1;color:#d472a0;padding:7px 10px;font-size:11px;font-weight:bold;border-bottom:1.5px solid #f9c8e4;text-align:right;">금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">반신 (채색)</td>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">30,000원~</span></td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">전신 (채색)</td>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">50,000원~</span></td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;">SD 캐릭터</td>
+            <td style="padding:7px 10px;border-bottom:1px dotted #f9d0e6;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">25,000원~</span></td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;color:#444;">이모티콘 1종</td>
+            <td style="padding:7px 10px;color:#444;text-align:right;"><span style="display:inline-block;padding:2px 8px;border-radius:999px;background:#fff0f7;color:#e86cac;font-size:11px;font-weight:bold;border:1px solid #f9c8e4;">협의</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.2 —</div>
+    </div>
+
+  </div>
+
+  <!-- ===== TAB 3 : 문의하기 ===== -->
+  <div id="ac3" style="display:none;border-radius:4px 16px 16px 4px;border:1.5px solid #f9c8e4;overflow:hidden;background:#fff8fc;min-height:340px;box-shadow:-4px 0 0 0 #f8a4c8,-8px 0 0 0 #fce4f1;margin-bottom:8px;">
+
+    <!-- 척추 -->
+    <div style="width:20px;background:#f8a4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:bold;color:#fff;letter-spacing:3px;">CONTACT</span>
+    </div>
+
+    <!-- 왼쪽 페이지 : 문의 양식 -->
+    <div style="flex:1;padding:20px 18px;border-right:1.5px dashed #f9c8e4;background:#fff8fc;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 문의 양식</div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">닉네임 *</label>
+        <input type="text" placeholder="닉네임을 입력해주세요" style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;">
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">의뢰 종류 *</label>
+        <select style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;">
+          <option value="">-- 선택해주세요 --</option>
+          <!-- ★ 본인 작업 종류에 맞게 수정 -->
+          <option>일러스트 (개인소장용)</option>
+          <option>일러스트 (상업용)</option>
+          <option>버추얼 / Live2D</option>
+          <option>SD 캐릭터</option>
+          <option>이모티콘</option>
+          <option>기타 (문의)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:4px;display:block;">문의 내용 *</label>
+        <textarea placeholder="의뢰 내용을 자세히 적어주세요 ♡&#10;&#10;예시)&#10;- 캐릭터 설명&#10;- 원하는 분위기/포즈&#10;- 레퍼런스 이미지 URL&#10;- 납기 희망일" style="width:100%;padding:7px 10px;border:1.5px solid #f9c8e4;border-radius:8px;font-size:12px;background:#fff0f7;color:#333;outline:none;resize:vertical;min-height:80px;"></textarea>
+      </div>
+
+      <div style="background:#fff0f7;border:1.5px solid #f9c8e4;border-radius:10px;padding:10px 12px;font-size:11px;color:#d472a0;text-align:center;line-height:1.7;">
+        📮 위 내용을 복사하여<br>
+        <strong>아트머그 쪽지</strong>로 보내주세요 ♡
+      </div>
+    </div>
+
+    <!-- 오른쪽 페이지 : 주의사항 -->
+    <div style="flex:1;padding:20px 18px;background:#fffafd;">
+      <div style="font-size:13px;font-weight:bold;color:#e86cac;margin:0 0 14px;padding-bottom:8px;border-bottom:1.5px dashed #f9c8e4;">✦ 문의 전 꼭 읽어주세요</div>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <!-- ★ 주의사항 수정 -->
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>문의는 아트머그 쪽지로만 받습니다</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>레퍼런스는 최대한 구체적으로 부탁드려요</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>급한 작업은 추가 금액이 발생할 수 있어요</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>작업 기간 중 수정 요청은 최소화 부탁드립니다</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>답장은 평일 기준 1~2일 내로 드립니다</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;border-bottom:1px dotted #f9d0e6;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>의뢰 거절 사유는 별도 안내드리지 않아요</li>
+        <li style="font-size:11.5px;color:#555;padding:6px 0 6px 18px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;top:7px;color:#f8a4c8;font-size:10px;">♡</span>완성 후 추가 수정은 별도 비용이 발생해요</li>
+      </ul>
+
+      <div style="border:none;border-top:1.5px dashed #f9c8e4;margin:14px 0;"></div>
+
+      <!-- ★ SNS 링크 수정 -->
+      <div style="font-size:11px;color:#d472a0;font-weight:bold;margin-bottom:6px;">✦ SNS</div>
+      <div style="font-size:11.5px;color:#666;">
+        트위터 : <a href="https://twitter.com/" style="color:#e86cac;">@닉네임</a><br>
+        인스타 : <a href="https://instagram.com/" style="color:#e86cac;">@닉네임</a>
+      </div>
+
+      <div style="text-align:right;font-size:10px;color:#f0b0d0;margin-top:12px;font-style:italic;">— p.3 —</div>
+    </div>
+
+  </div>
+
+</div>
