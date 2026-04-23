@@ -524,6 +524,18 @@ section { margin-bottom: 56px; }
   font-weight: 700;
   margin: 12px 0 6px;
 }
+/* 2개씩 배치하고 싶은 구역 전용 스타일 */
+.grid-2-columns {
+  display: grid !important; /* flex 대신 grid 사용 */
+  grid-template-columns: repeat(2, 1fr) !important; /* 무조건 2열로 고정 */
+  gap: 12px;
+}
+
+.grid-2-columns img {
+  width: 100% !important;
+  max-width: none !important; /* 기존의 50% 제한 해제 */
+  flex: none !important; /* flex 관련 설정 무시 */
+}
 
 /* ── 반응형 ── */
 @media (max-width: 600px) {
@@ -734,7 +746,7 @@ section { margin-bottom: 56px; }
             <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748910560_Re.jpg" alt="냥젤리 고정틀 구성" onclick="openLightbox(this.src)">
           </div>
           <div class="work-add-label">✦ 추가 옵션</div>
-          <div class="work-imgs-row">
+          <div class="work-imgs-row grid-2-columns">
             <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408730.gif" alt="바보털 모션" onclick="openLightbox(this.src)">
             <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408731.gif" alt="동물 귀꼬리 모션" onclick="openLightbox(this.src)">
             <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408732.gif" alt="오브젝트 움직임" onclick="openLightbox(this.src)">
