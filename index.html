@@ -433,14 +433,104 @@ section { margin-bottom: 56px; }
 }
 .copy-toast.show { opacity: 1; top: -48px; }
 
+/* ── 작품 상세 섹션 ── */
+.work-list { display: flex; flex-direction: column; gap: 32px; }
+.work-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.work-card-header {
+  background: var(--pink-light);
+  padding: 16px 24px;
+  border-bottom: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.work-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--pink-deep);
+}
+.work-card-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.work-meta-tag {
+  background: var(--pink-mid);
+  color: var(--pink-dark);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.work-card-body { padding: 20px 24px; }
+.work-desc {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  background: var(--pink-light);
+  border-radius: 10px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--pink-main);
+}
+.work-desc ul { list-style: none; padding: 0; }
+.work-desc li {
+  padding: 3px 0 3px 16px;
+  position: relative;
+}
+.work-desc li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--pink-main);
+  font-size: 9px;
+  top: 6px;
+}
+.work-imgs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.work-imgs img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.work-imgs img:hover { opacity: 0.9; }
+.work-imgs-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.work-imgs-row img {
+  flex: 1;
+  min-width: 140px;
+  max-width: calc(50% - 6px);
+}
+.work-add-label {
+  font-size: 12px;
+  color: var(--pink-dark);
+  font-weight: 700;
+  margin: 12px 0 6px;
+}
+
 /* ── 반응형 ── */
 @media (max-width: 600px) {
   .profile-card { flex-direction: column; text-align: center; }
   .tag-wrap { justify-content: center; }
-  .package-grid { grid-template-columns: 1fr; }
   .pf-grid { grid-template-columns: repeat(2, 1fr); }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-item.full, .copy-wrap { grid-column: span 1; }
+  .work-imgs-row img { max-width: 100%; }
 }
 @media (max-width: 380px) {
   .pf-grid { grid-template-columns: 1fr; }
@@ -599,7 +689,239 @@ section { margin-bottom: 56px; }
 
 
   <!-- ============================
-    SECTION 4 : 포트폴리오
+    SECTION 4 : 작품 상세 안내
+  ============================= -->
+  <section>
+    <div class="section-title">작품 안내</div>
+    <div class="work-list">
+
+      <!-- ── 유튜브 표정소스 ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">유튜브 표정소스</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">1500×1500</span>
+            <span class="work-meta-tag">컨펌 2회</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17725435630_Re.jpg" alt="유튜브 표정소스 샘플1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17744514320_Re.jpg" alt="유튜브 표정소스 샘플2" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 냥젤리 고정틀 ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">냥젤리 고정틀</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">1500×1500</span>
+            <span class="work-meta-tag">컨펌 1회</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>디코 오버레이보단 방송화면에 더 적합</li>
+              <li>기본 &amp; 게임기 2버전 세트 제공</li>
+              <li>신발 안 그립니다</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713409630_Re.jpg" alt="냥젤리 고정틀" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748910560_Re.jpg" alt="냥젤리 고정틀 구성" onclick="openLightbox(this.src)">
+          </div>
+          <div class="work-add-label">✦ 추가 옵션</div>
+          <div class="work-imgs-row">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408730.gif" alt="바보털 모션" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408731.gif" alt="동물 귀꼬리 모션" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408732.gif" alt="오브젝트 움직임" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 속인거니? 고정틀 ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">속인거니? 고정틀</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">무컨펌</span>
+            <span class="work-meta-tag">구독티콘 사용가능</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>눈매, 헤어, 눈 색만 바뀌는 무컨펌 고정틀</li>
+              <li>캐릭터 전체 색감에 따라 테두리 색이 달라집니다</li>
+              <li>디테일한 장식은 단순화 혹은 생략될 수 있습니다</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17618336590_Re.jpg" alt="속인거니 고정틀1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650285040_Re.jpg" alt="속인거니 고정틀2" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 망충망충해 set ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">망충망충해 set</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">1000×800</span>
+            <span class="work-meta-tag">무컨펌</span>
+            <span class="work-meta-tag">🔥 300건 이상 인기상품!</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>헤어, 옷만 바뀌는 고정틀입니다</li>
+              <li>눈 변경 불가능합니다</li>
+              <li>안경 추가 불가능합니다</li>
+              <li style="color:#e86cac;font-weight:700;">작가가 실수한 부분 외 수정받지 않습니다</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404859790.gif" alt="망충망충해 GIF1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404860140.gif" alt="망충망충해 GIF2" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17414234820_Re.jpg" alt="망충망충해 샘플" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 망충이 기다려 set ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">망충이 기다려 set</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">2000×2000</span>
+            <span class="work-meta-tag">컨펌 1회</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>눈 색 변경 추천하지 않습니다</li>
+              <li>캐릭터 전체 색감에 따라 테두리 색이 달라집니다</li>
+              <li>안경 불가능합니다</li>
+              <li>허벅지 가터 등의 포인트는 생략될 수도 있습니다</li>
+              <li style="color:#e86cac;font-weight:700;">눈 B타입 변경 원할 시 꼭 요청사항에 적어주세요</li>
+              <li>눈 타입 2개 다 원할 시 추가금 ×2.0</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566368890.gif" alt="망충이 기다려 GIF1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566402110.gif" alt="망충이 기다려 GIF2" onclick="openLightbox(this.src)">
+          </div>
+          <div class="work-add-label">✦ 꼬리 모션 추가</div>
+          <div class="work-desc">
+            <ul>
+              <li>토끼, 강아지, 너구리, 고양이 +1.0</li>
+              <li>그 외 동물 꼬리 +2.0~ (문의)</li>
+              <li>리본 등 악세 추가 불가</li>
+              <li>꼬리 대신 바보털 움직임 추가 가능 +2.0</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566330790.gif" alt="꼬리 모션1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17567158730.gif" alt="꼬리 모션2" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17633846270_Re.jpg" alt="바보털 샘플1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17734813830_Re.jpg" alt="바보털 샘플2" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 프로필 고정틀 ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">프로필 고정틀</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">1500×1500</span>
+            <span class="work-meta-tag">정면 흉상</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>배경색은 작가가 임의로 정하나, 원하시는 색상이 있으면 말씀해주세요</li>
+              <li>표정에 대한 말씀이 없다면 미소가 기본입니다</li>
+              <li>짚톡 추가 +2.0</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275400_Re.jpg" alt="프로필 고정틀" onclick="openLightbox(this.src)">
+          </div>
+          <div class="work-add-label">✦ 짚톡 추가 샘플</div>
+          <div class="work-imgs-row">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275270.gif" alt="짚톡1" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275271.gif" alt="짚톡2" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275272.gif" alt="짚톡3" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275273.gif" alt="짚톡4" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275840.gif" alt="짚톡5" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275841.gif" alt="짚톡6" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 유튜브 자막바 일러스트 ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">유튜브 자막바 일러스트</div>
+          <div class="work-card-meta">
+            <span class="work-meta-tag">600×600</span>
+            <span class="work-meta-tag">표정 추가 가능</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-desc">
+            <ul>
+              <li>자막바 미포함, only 두상 그림</li>
+              <li>제일 최신 그림체 참고 권장</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684694060_Re.jpg" alt="자막바 최신" onclick="openLightbox(this.src)">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713407050_Re.jpg" alt="자막바 샘플" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 기타 (문의) ── -->
+      <div class="work-card">
+        <div class="work-card-header">
+          <div class="work-card-title">샘플 외 작품 — 문의주세요</div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-add-label">✦ 굿즈 일러스트</div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650689580_Re.jpg" alt="굿즈 일러스트" onclick="openLightbox(this.src)">
+          </div>
+          <div class="work-add-label">✦ 고정틀 외 자유 짚톡</div>
+          <div class="work-desc">
+            <ul>
+              <li>본인이 원하는 구도로 작업 진행, 원하시는 구도를 말씀해 주셔야 합니다</li>
+            </ul>
+          </div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684692261_Re.jpg" alt="자유 짚톡" onclick="openLightbox(this.src)">
+          </div>
+          <div class="work-add-label">✦ 구독티콘</div>
+          <div class="work-imgs">
+            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748523280.gif" alt="구독티콘" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+    SECTION 5 : 포트폴리오
   ============================= -->
   <section>
     <div class="section-title">포트폴리오</div>
