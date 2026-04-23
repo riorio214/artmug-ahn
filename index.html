@@ -485,17 +485,39 @@ section { margin-bottom: 56px; }
     SECTION 2 : 안내사항
   ============================= -->
   <section>
-    <div class="section-title">안내사항</div>
+    <div class="section-title">저작권 및 주의사항</div>
     <div class="notice-card">
       <ul>
-        <!-- ★ 안내사항 수정/추가/삭제 -->
-        <li>모든 저작물의 저작권은 저에게 있습니다. 2차 수정 및 무단 배포를 금지합니다.</li>
-        <li>작업 기간은 의뢰 후 협의로 결정됩니다.</li>
-        <li>스케치 수정 2회 / 채색 후 수정 1회가 포함됩니다.</li>
-        <li>상업적 이용은 별도 금액이 발생합니다.</li>
-        <li>레퍼런스를 첨부해 주시면 소통이 훨씬 원활해요!</li>
-        <li>완성 후 원본 파일(PSD)은 제공되지 않습니다.</li>
-        <li>급한 작업은 추가 금액이 발생할 수 있습니다.</li>
+        <li>본 커미션의 저작권은 <strong>안제이</strong>에게 있습니다.</li>
+        <li>2차 가공, 도용, AI 학습, 무단 캡처를 금지합니다.</li>
+        <li>X(구 트위터) Grok을 포함한 모든 AI 학습에 사용을 금지합니다.</li>
+        <li>위 사항을 지키지 않아 발생하는 문제에 대해서는 책임지지 않습니다.</li>
+        <li>자료와 요청 사항은 최대한 <strong>한 번에</strong> 보내주세요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">사용 범위</div>
+    <div class="notice-card">
+      <ul>
+        <li>모든 그림은 주문 목적 외 용도 사용이 불가합니다.</li>
+        <li>개인 소장용 → 방송용 사용 ❌</li>
+        <li>방송용 → 유튜브 소스 사용 ❌</li>
+        <li>작업이 방송에서 진행될 수 있습니다. (공개 작업)</li>
+        <li>비공개 작업도 가능합니다. 샘플 비공개 요청 시 추가금이 발생합니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">작업 기간</div>
+    <div class="notice-card">
+      <ul>
+        <li>기본 기간 : 시작일로부터 <strong>2주 (14일)</strong></li>
+        <li>빠른 마감 : 일주일 이내 — 작가와 협의 후 진행</li>
+        <li>당일 마감 : 24시간 이내 — 작가와 협의 후 진행</li>
+        <li>⚠️ 의뢰자의 답장이 지연될 경우, 그로 인해 초과되는 시간은 책임지지 않습니다.</li>
       </ul>
     </div>
   </section>
@@ -608,73 +630,80 @@ section { margin-bottom: 56px; }
     SECTION 5 : 문의 양식
   ============================= -->
   <section>
-    <div class="section-title">문의 양식</div>
+    <div class="section-title">신청 양식</div>
     <div class="letter-wrap">
 
-      <!-- 편지지 상단 핀 장식 -->
       <div class="letter-top">
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
       </div>
 
-      <!-- 편지지 본문 -->
       <div class="letter-body">
 
         <div class="letter-greeting">
-          🌸 안녕하세요! 의뢰 내용을 작성 후 복사해서 쪽지로 보내주세요 ♡
+          🌸 아래 양식을 작성 후 복사해서 쪽지로 보내주세요 ♡
         </div>
 
         <div class="letter-field">
-          <div class="letter-label">TO. 작가님께</div>
-        </div>
-
-        <div class="letter-field">
-          <label class="letter-label">01 · 닉네임</label>
-          <input class="letter-input" id="fm_nick" type="text" placeholder="닉네임을 적어주세요">
-        </div>
-
-        <!-- ★ 의뢰 종류 수정 -->
-        <div class="letter-field">
-          <label class="letter-label">02 · 의뢰 종류</label>
-          <select class="letter-select" id="fm_type">
+          <label class="letter-label">01 · 방송용 / 개인소장용</label>
+          <select class="letter-select" id="fm_use">
             <option value="">-- 선택해주세요 --</option>
-            <option>일러스트 (개인소장)</option>
-            <option>일러스트 (상업용)</option>
-            <option>버추얼 / Live2D</option>
-            <option>SD 캐릭터</option>
-            <option>이모티콘</option>
-            <option>기타 (문의)</option>
+            <option>방송용</option>
+            <option>개인소장용</option>
           </select>
         </div>
 
         <div class="letter-field">
-          <label class="letter-label">03 · 콘셉트 / 레퍼런스</label>
-          <textarea class="letter-textarea" id="fm_concept" placeholder="원하시는 분위기, 레퍼런스 URL 등을 자유롭게 적어주세요 ♡"></textarea>
+          <label class="letter-label">02 · 닉네임 / 플랫폼 <span style="font-size:10px;color:var(--text-muted);font-weight:400;">(개인소장용인 경우 생략 가능)</span></label>
+          <input class="letter-input" id="fm_nick" type="text" placeholder="닉네임 / 플랫폼명을 적어주세요">
         </div>
 
         <div class="letter-field">
-          <label class="letter-label">04 · 캐릭터 설명</label>
-          <textarea class="letter-textarea" id="fm_chara" placeholder="캐릭터 외형, 복장, 헤어컬러 등을 자세히 알려주세요"></textarea>
+          <label class="letter-label">03 · 신청 항목</label>
+          <input class="letter-input" id="fm_item" type="text" placeholder="신청하실 항목을 적어주세요">
         </div>
 
         <div class="letter-field">
-          <label class="letter-label">05 · 그 외 요청사항</label>
-          <textarea class="letter-textarea" id="fm_extra" placeholder="기타 요청이나 궁금한 점을 자유롭게 적어주세요"></textarea>
+          <label class="letter-label">04 · 샘플 공개 여부</label>
+          <select class="letter-select" id="fm_sample">
+            <option value="">-- 선택해주세요 --</option>
+            <option>공개</option>
+            <option>비공개 (추가금 발생)</option>
+          </select>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">05 · 방송 작업 여부</label>
+          <select class="letter-select" id="fm_broadcast">
+            <option value="">-- 선택해주세요 --</option>
+            <option>가능</option>
+            <option>불가능</option>
+          </select>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">06 · 캐릭터 정보</label>
+          <textarea class="letter-textarea" id="fm_chara" placeholder="그림 or 사진 URL을 첨부해주세요&#10;정확한 색상을 원하실 경우 팔레트도 함께 첨부해주세요"></textarea>
+        </div>
+
+        <div class="letter-field">
+          <label class="letter-label">07 · 요청사항</label>
+          <textarea class="letter-textarea" id="fm_request" placeholder="구도, 꼭 들어가야 하는 부분, 송곳니 등 자세히 적어주세요"></textarea>
         </div>
 
         <div class="letter-closing">
           From. 의뢰인 드림 🌸
         </div>
 
-      </div><!-- /letter-body -->
+      </div>
 
       <div class="copy-wrap">
         <div class="copy-toast" id="copyToast">📋 복사 완료!</div>
-        <button class="copy-btn" onclick="copyForm()">✉️ 문의 내용 복사하기</button>
+        <button class="copy-btn" onclick="copyForm()">✉️ 신청 양식 복사하기</button>
       </div>
 
-    </div><!-- /letter-wrap -->
+    </div>
   </section>
 
 </div><!-- /container -->
@@ -781,22 +810,25 @@ renderPf();
   문의 양식 복사
 ============================= */
 async function copyForm() {
-  const nick    = document.getElementById('fm_nick').value    || '없음';
-  const type    = document.getElementById('fm_type').value    || '없음';
-  const concept = document.getElementById('fm_concept').value || '없음';
-  const chara   = document.getElementById('fm_chara').value   || '없음';
-  const extra   = document.getElementById('fm_extra').value   || '없음';
+  const use       = document.getElementById('fm_use').value       || '없음';
+  const nick      = document.getElementById('fm_nick').value      || '없음';
+  const item      = document.getElementById('fm_item').value      || '없음';
+  const sample    = document.getElementById('fm_sample').value    || '없음';
+  const broadcast = document.getElementById('fm_broadcast').value || '없음';
+  const chara     = document.getElementById('fm_chara').value     || '없음';
+  const request   = document.getElementById('fm_request').value   || '없음';
 
-  const text = `[문의 양식]
+  const text = `[안제이 작가 신청 양식]
 
-1. 닉네임: ${nick}
-2. 의뢰 종류: ${type}
-3. 콘셉트/레퍼런스: 
-${concept}
-4. 캐릭터 설명: 
+1. 방송용 / 개인소장용 : ${use}
+2. 닉네임 / 플랫폼 : ${nick}
+3. 신청 항목 : ${item}
+4. 샘플 공개 여부 : ${sample}
+5. 방송 작업 : ${broadcast}
+6. 캐릭터 정보 : 
 ${chara}
-5. 그 외 요청사항: 
-${extra}`;
+7. 요청사항 : 
+${request}`;
 
   try {
     await navigator.clipboard.writeText(text);
