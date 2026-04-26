@@ -606,9 +606,10 @@ section { margin-bottom: 56px; }
 ══════════════════════════════════════ */
 .lightbox-overlay {
   display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 100vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* top / height은 JS에서 동적으로 설정 */
   background: rgba(0, 0, 0, 0.85);
   z-index: 9999;
   align-items: center;
@@ -1204,17 +1205,49 @@ if (window.ResizeObserver) {
 
 /* ============================
   ✨ 라이트박스
+  — 부모 페이지 스크롤 위치를 받아서
+    실제 화면 중앙에 정확히 띄웁니다
 ============================= */
-let lbImages = []; // 현재 슬라이더의 이미지 목록
-let lbIndex  = 0;  // 현재 보는 인덱스
+let lbImages = [];
+let lbIndex  = 0;
+let parentScrollY = 0;   // 부모로부터 받은 스크롤 Y
+let parentViewH   = 600; // 부모 뷰포트 높이
 
-// 슬라이더에서 이미지 클릭 시 호출
+// 부모 페이지에서 스크롤 정보를 받음
+window.addEventListener('message', e => {
+  if (e.data && e.data.type === 'scrollInfo') {
+    parentScrollY = e.data.scrollY   || 0;
+    parentViewH   = e.data.viewportH || window.innerHeight;
+    if (document.getElementById('lightbox').classList.contains('open')) {
+      positionLightbox();
+    }
+  }
+});
+
+// 부모에게 스크롤 정보 요청
+function requestScrollInfo() {
+  window.parent.postMessage({ type: 'getScrollInfo' }, '*');
+}
+
+// 라이트박스를 부모 스크롤 위치 기준으로 배치
+function positionLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.style.top    = parentScrollY + 'px';
+  lb.style.height = parentViewH   + 'px';
+}
+
 function openLightbox(src, images) {
   lbImages = images && images.length ? images : [src];
   lbIndex  = lbImages.indexOf(src);
   if (lbIndex < 0) lbIndex = 0;
   lbRender();
-  document.getElementById('lightbox').classList.add('open');
+  // 먼저 스크롤 정보 요청 → 받으면 positionLightbox() 호출
+  requestScrollInfo();
+  // 혹시 부모가 응답 못 해도 즉시 열리도록 fallback
+  const lb = document.getElementById('lightbox');
+  lb.style.top    = (window.scrollY || 0) + 'px';
+  lb.style.height = (window.innerHeight || 600) + 'px';
+  lb.classList.add('open');
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 }
@@ -1251,11 +1284,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') lbNav(1);
   if (e.key === 'Escape')     closeLightbox();
 });
-
-// 아트머그 부모 페이지에도 메시지 전달 (호환성 유지)
-function notifyParent(src) {
-  window.parent.postMessage({ type: 'openLightbox', src: src }, '*');
-}
 
 /* ============================
   ✨ 이미지 슬라이더 초기화
