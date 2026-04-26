@@ -617,18 +617,22 @@ section { margin-bottom: 56px; }
   <!-- ============================
     SECTION 1 : 문의 양식
   ============================= -->
-  <section>
+<section>
     <div class="section-title">신청 양식</div>
     <div class="letter-wrap">
+
       <div class="letter-top">
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
       </div>
+
       <div class="letter-body">
+
         <div class="letter-greeting">
           🌸 아래 양식을 작성 후 복사해서 쪽지로 보내주세요 ♡
         </div>
+
         <div class="letter-field">
           <label class="letter-label">01 · 방송용 / 개인소장용</label>
           <select class="letter-select" id="fm_use">
@@ -637,14 +641,17 @@ section { margin-bottom: 56px; }
             <option>개인소장용</option>
           </select>
         </div>
+
         <div class="letter-field">
           <label class="letter-label">02 · 닉네임 / 플랫폼 <span style="font-size:10px;color:var(--text-muted);font-weight:400;">(개인소장용인 경우 생략 가능)</span></label>
           <input class="letter-input" id="fm_nick" type="text" placeholder="닉네임 / 플랫폼명을 적어주세요">
         </div>
+
         <div class="letter-field">
           <label class="letter-label">03 · 신청 항목</label>
           <input class="letter-input" id="fm_item" type="text" placeholder="신청하실 항목을 적어주세요">
         </div>
+
         <div class="letter-field">
           <label class="letter-label">04 · 샘플 공개 여부</label>
           <select class="letter-select" id="fm_sample">
@@ -653,6 +660,7 @@ section { margin-bottom: 56px; }
             <option>비공개 (추가금 발생)</option>
           </select>
         </div>
+
         <div class="letter-field">
           <label class="letter-label">05 · 방송 작업 여부</label>
           <select class="letter-select" id="fm_broadcast">
@@ -661,20 +669,28 @@ section { margin-bottom: 56px; }
             <option>불가능</option>
           </select>
         </div>
+
         <div class="letter-field">
           <label class="letter-label">06 · 캐릭터 정보</label>
           <textarea class="letter-textarea" id="fm_chara" placeholder="그림 or 사진 URL을 첨부해주세요&#10;정확한 색상을 원하실 경우 팔레트도 함께 첨부해주세요"></textarea>
         </div>
+
         <div class="letter-field">
           <label class="letter-label">07 · 요청사항</label>
           <textarea class="letter-textarea" id="fm_request" placeholder="구도, 꼭 들어가야 하는 부분, 송곳니 등 자세히 적어주세요"></textarea>
         </div>
-        <div class="letter-closing">From. 의뢰인 드림 🌸</div>
+
+        <div class="letter-closing">
+          From. 의뢰인 드림 🌸
+        </div>
+
       </div>
+
       <div class="copy-wrap">
         <div class="copy-toast" id="copyToast">📋 복사 완료!</div>
-        <button class="copy-btn" onclick="copyForm()">✉️ 신청 양식 복사하기</button>
+        <button class="copy-btn" onclick="copyForm()"> 🌸신청 양식 복사하기</button>
       </div>
+
     </div>
   </section>
 
