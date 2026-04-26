@@ -1084,7 +1084,6 @@ if (window.ResizeObserver) {
 function openLightbox(src) {
   let lb = document.getElementById('my-lightbox');
 
-  // 없으면 생성
   if (!lb) {
     lb = document.createElement('div');
     lb.id = 'my-lightbox';
@@ -1096,23 +1095,22 @@ function openLightbox(src) {
       justify-content:center;
       align-items:center;
       z-index:9999;
-      cursor:pointer;
     `;
 
     const img = document.createElement('img');
     img.style.maxWidth = '90%';
     img.style.maxHeight = '90%';
-    img.style.borderRadius = '8px';
 
     lb.appendChild(img);
     document.body.appendChild(lb);
 
-    // 클릭하면 닫기
     lb.onclick = () => lb.remove();
   }
 
-  // 이미지 변경
   lb.querySelector('img').src = src;
+
+  // 👇 이거 추가 (핵심)
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 /* ============================
