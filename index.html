@@ -601,117 +601,6 @@ section { margin-bottom: 56px; }
 /* 이미지 1장이면 footer 숨김 */
 .img-slider.single .slider-footer { display: none; }
 
-/* ══════════════════════════════════════
-   ✨ 라이트박스 (이미지 확대)
-══════════════════════════════════════ */
-.lightbox-overlay {
-  display: none;
-  position: absolute;
-  left: 0;
-  right: 0;
-  /* top / height은 JS에서 동적으로 설정 */
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(6px);
-}
-.lightbox-overlay.open {
-  display: flex;
-}
-.lightbox-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 60px 70px;
-  box-sizing: border-box;
-}
-.lightbox-img-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  max-height: 100%;
-}
-.lightbox-img-wrap img {
-  max-width: 100%;
-  max-height: calc(100vh - 120px);
-  border-radius: 14px;
-  box-shadow: 0 8px 48px rgba(0,0,0,0.6);
-  object-fit: contain;
-  animation: lbZoomIn 0.22s cubic-bezier(0.4,0,0.2,1);
-  display: block;
-}
-@keyframes lbFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes lbZoomIn {
-  from { transform: scale(0.88); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-/* 닫기 버튼 */
-.lightbox-close {
-  position: absolute;
-  top: 16px; right: 16px;
-  width: 40px; height: 40px;
-  background: rgba(255,255,255,0.15);
-  border: 1.5px solid rgba(255,255,255,0.3);
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s;
-  line-height: 1;
-  z-index: 10;
-}
-.lightbox-close:hover {
-  background: var(--pink-main);
-  border-color: var(--pink-main);
-}
-/* 라이트박스 이전/다음 버튼 */
-.lightbox-nav {
-  position: absolute;
-  top: 50%; transform: translateY(-50%);
-  width: 44px; height: 44px;
-  background: rgba(255,255,255,0.15);
-  border: 1.5px solid rgba(255,255,255,0.3);
-  border-radius: 50%;
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s;
-  line-height: 1;
-  z-index: 10;
-}
-.lightbox-nav:hover {
-  background: var(--pink-main);
-  border-color: var(--pink-main);
-}
-.lightbox-nav.prev { left: 16px; }
-.lightbox-nav.next { right: 16px; }
-.lightbox-nav:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
-/* 하단 카운터 */
-.lightbox-counter {
-  position: absolute;
-  bottom: 16px; left: 50%;
-  transform: translateX(-50%);
-  color: rgba(255,255,255,0.7);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-family: 'Paperlogy', sans-serif;
-}
-
 /* ── 반응형 ── */
 @media (max-width: 600px) {
   .profile-card { flex-direction: column; text-align: center; }
@@ -1176,19 +1065,6 @@ section { margin-bottom: 56px; }
 
 </div><!-- /container -->
 
-<!-- ✨ 라이트박스 오버레이 -->
-<div class="lightbox-overlay" id="lightbox" onclick="lbClickOutside(event)">
-  <div class="lightbox-inner">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="lightbox-nav prev" id="lbPrev" onclick="lbNav(-1)">&#8249;</button>
-    <div class="lightbox-img-wrap">
-      <img id="lbImg" src="" alt="확대 이미지">
-    </div>
-    <button class="lightbox-nav next" id="lbNext" onclick="lbNav(1)">&#8250;</button>
-    <div class="lightbox-counter" id="lbCounter"></div>
-  </div>
-</div>
-
 <script>
 /* ============================
   iframe 높이 자동 조절
@@ -1205,84 +1081,50 @@ if (window.ResizeObserver) {
 
 /* ============================
   ✨ 라이트박스
-  — 부모 페이지 스크롤 위치를 받아서
-    실제 화면 중앙에 정확히 띄웁니다
+  — 라이트박스는 부모 페이지에서 담당
+    여기선 클릭 시 메시지만 보냄
 ============================= */
 let lbImages = [];
 let lbIndex  = 0;
-let parentScrollY = 0;   // 부모로부터 받은 스크롤 Y
-let parentViewH   = 600; // 부모 뷰포트 높이
-
-// 부모 페이지에서 스크롤 정보를 받음
-window.addEventListener('message', e => {
-  if (e.data && e.data.type === 'scrollInfo') {
-    parentScrollY = e.data.scrollY   || 0;
-    parentViewH   = e.data.viewportH || window.innerHeight;
-    if (document.getElementById('lightbox').classList.contains('open')) {
-      positionLightbox();
-    }
-  }
-});
-
-// 부모에게 스크롤 정보 요청
-function requestScrollInfo() {
-  window.parent.postMessage({ type: 'getScrollInfo' }, '*');
-}
-
-// 라이트박스를 부모 스크롤 위치 기준으로 배치
-function positionLightbox() {
-  const lb = document.getElementById('lightbox');
-  lb.style.top    = parentScrollY + 'px';
-  lb.style.height = parentViewH   + 'px';
-}
 
 function openLightbox(src, images) {
   lbImages = images && images.length ? images : [src];
   lbIndex  = lbImages.indexOf(src);
   if (lbIndex < 0) lbIndex = 0;
-  lbRender();
-  // 먼저 스크롤 정보 요청 → 받으면 positionLightbox() 호출
-  requestScrollInfo();
-  // 혹시 부모가 응답 못 해도 즉시 열리도록 fallback
-  const lb = document.getElementById('lightbox');
-  lb.style.top    = (window.scrollY || 0) + 'px';
-  lb.style.height = (window.innerHeight || 600) + 'px';
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.documentElement.style.overflow = 'hidden';
+  // 부모 페이지에 현재 이미지 + 전체 목록 전달
+  window.parent.postMessage({
+    type:   'openLightbox',
+    src:    lbImages[lbIndex],
+    images: lbImages,
+    index:  lbIndex
+  }, '*');
 }
 
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
-  document.documentElement.style.overflow = '';
-}
+// 부모에서 이전/다음 요청을 받을 경우 대응 (선택적)
+window.addEventListener('message', e => {
+  if (!e.data) return;
+  if (e.data.type === 'lbNav') {
+    lbIndex = Math.max(0, Math.min(lbIndex + e.data.dir, lbImages.length - 1));
+    window.parent.postMessage({
+      type:   'lbUpdate',
+      src:    lbImages[lbIndex],
+      index:  lbIndex,
+      total:  lbImages.length
+    }, '*');
+  }
+});
 
-function lbRender() {
-  document.getElementById('lbImg').src = lbImages[lbIndex];
-  document.getElementById('lbPrev').disabled = lbIndex === 0;
-  document.getElementById('lbNext').disabled = lbIndex === lbImages.length - 1;
-  document.getElementById('lbCounter').textContent =
-    lbImages.length > 1 ? `${lbIndex + 1} / ${lbImages.length}` : '';
-}
-
-function lbNav(dir) {
-  lbIndex = Math.max(0, Math.min(lbIndex + dir, lbImages.length - 1));
-  lbRender();
-}
-
-function lbClickOutside(e) {
-  if (e.target === document.getElementById('lightbox') ||
-      e.target.classList.contains('lightbox-inner')) closeLightbox();
-}
-
-// 키보드 지원 (← → Esc)
+// 키보드 지원 (← →) — iframe 포커스 있을 때
 document.addEventListener('keydown', e => {
-  const lb = document.getElementById('lightbox');
-  if (!lb.classList.contains('open')) return;
-  if (e.key === 'ArrowLeft')  lbNav(-1);
-  if (e.key === 'ArrowRight') lbNav(1);
-  if (e.key === 'Escape')     closeLightbox();
+  if (lbImages.length === 0) return;
+  if (e.key === 'ArrowLeft')  {
+    lbIndex = Math.max(0, lbIndex - 1);
+    window.parent.postMessage({ type: 'lbUpdate', src: lbImages[lbIndex], index: lbIndex, total: lbImages.length }, '*');
+  }
+  if (e.key === 'ArrowRight') {
+    lbIndex = Math.min(lbImages.length - 1, lbIndex + 1);
+    window.parent.postMessage({ type: 'lbUpdate', src: lbImages[lbIndex], index: lbIndex, total: lbImages.length }, '*');
+  }
 });
 
 /* ============================
