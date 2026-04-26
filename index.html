@@ -306,10 +306,7 @@ section { margin-bottom: 56px; }
 }
 
 /* ── 문의 양식 — 편지지 스타일 ── */
-.letter-wrap {
-  position: relative;
-}
-/* 편지지 상단 뜯린 부분 */
+.letter-wrap { position: relative; }
 .letter-top {
   width: 100%;
   height: 20px;
@@ -325,14 +322,12 @@ section { margin-bottom: 56px; }
   background: rgba(255,255,255,0.5);
   border-radius: 50%;
 }
-/* 편지지 본문 */
 .letter-body {
   background: #fffcfe;
   border: 1.5px solid var(--border);
   border-top: none;
   border-radius: 0 0 16px 16px;
   padding: 32px 32px 28px;
-  /* 편지지 줄 배경 */
   background-image: repeating-linear-gradient(
     to bottom,
     transparent,
@@ -353,7 +348,6 @@ section { margin-bottom: 56px; }
   align-items: center;
   gap: 6px;
 }
-/* 편지지 각 항목 */
 .letter-field {
   margin-bottom: 18px;
   display: flex;
@@ -384,7 +378,6 @@ section { margin-bottom: 56px; }
 }
 .letter-textarea { resize: vertical; min-height: 72px; line-height: 2; }
 .letter-select { cursor: pointer; }
-/* 편지 끝 인사 */
 .letter-closing {
   text-align: right;
   font-size: 12px;
@@ -394,7 +387,6 @@ section { margin-bottom: 56px; }
   border-top: 1.5px dashed var(--border);
   font-style: italic;
 }
-/* 복사 버튼 */
 .copy-wrap {
   display: flex;
   justify-content: center;
@@ -495,54 +487,124 @@ section { margin-bottom: 56px; }
   font-size: 9px;
   top: 6px;
 }
-.work-imgs {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.work-imgs img {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.work-imgs img:hover { opacity: 0.9; }
-.work-imgs-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.work-imgs-row img {
-  flex: 1;
-  min-width: 140px;
-  max-width: calc(50% - 6px);
-}
 .work-add-label {
   font-size: 12px;
   color: var(--pink-dark);
   font-weight: 700;
-  margin: 12px 0 6px;
-}
-/* 2개씩 배치하고 싶은 구역 전용 스타일 */
-.grid-2-columns {
-  display: grid !important; /* flex 대신 grid 사용 */
-  grid-template-columns: repeat(2, 1fr) !important; /* 무조건 2열로 고정 */
-  gap: 12px;
+  margin: 16px 0 10px;
 }
 
-.grid-2-columns img {
-  width: 100% !important;
-  max-width: none !important; /* 기존의 50% 제한 해제 */
-  flex: none !important; /* flex 관련 설정 무시 */
+/* ══════════════════════════════════════
+   ✨ 이미지 슬라이더 (새로 추가된 부분)
+══════════════════════════════════════ */
+.img-slider {
+  position: relative;
+  background: var(--pink-light);
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 8px;
 }
+
+/* 슬라이드 뷰포트 */
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* 슬라이드 트랙 — 이미지들이 가로로 나열됨 */
+.slider-track {
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider-track img {
+  width: 100%;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+  max-height: 480px;
+  background: var(--pink-light);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.slider-track img:hover { opacity: 0.9; }
+
+/* 이전/다음 버튼 */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.88);
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  color: var(--pink-deep);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: 0.2s;
+  box-shadow: 0 2px 8px rgba(232,108,172,0.15);
+  line-height: 1;
+}
+.slider-btn:hover {
+  background: var(--pink-main);
+  color: #fff;
+  border-color: var(--pink-main);
+}
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
+.slider-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* 슬라이더가 이미지 1장이면 버튼 숨김 */
+.img-slider.single .slider-btn { display: none; }
+
+/* 하단 도트 + 카운터 */
+.slider-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0 12px;
+}
+.slider-dots {
+  display: flex;
+  gap: 5px;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.dot.active {
+  background: var(--pink-main);
+  transform: scale(1.3);
+}
+.slider-count {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* 이미지 1장이면 footer 숨김 */
+.img-slider.single .slider-footer { display: none; }
 
 /* ── 반응형 ── */
 @media (max-width: 600px) {
   .profile-card { flex-direction: column; text-align: center; }
   .tag-wrap { justify-content: center; }
   .pf-grid { grid-template-columns: repeat(2, 1fr); }
-  .work-imgs-row img { max-width: 100%; }
 }
 @media (max-width: 380px) {
   .pf-grid { grid-template-columns: 1fr; }
@@ -552,25 +614,21 @@ section { margin-bottom: 56px; }
 <body>
 <div class="container">
 
-    <!-- ============================
+  <!-- ============================
     SECTION 1 : 문의 양식
   ============================= -->
   <section>
     <div class="section-title">신청 양식</div>
     <div class="letter-wrap">
-
       <div class="letter-top">
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
         <div class="letter-hole"></div>
       </div>
-
       <div class="letter-body">
-
         <div class="letter-greeting">
           🌸 아래 양식을 작성 후 복사해서 쪽지로 보내주세요 ♡
         </div>
-
         <div class="letter-field">
           <label class="letter-label">01 · 방송용 / 개인소장용</label>
           <select class="letter-select" id="fm_use">
@@ -579,17 +637,14 @@ section { margin-bottom: 56px; }
             <option>개인소장용</option>
           </select>
         </div>
-
         <div class="letter-field">
           <label class="letter-label">02 · 닉네임 / 플랫폼 <span style="font-size:10px;color:var(--text-muted);font-weight:400;">(개인소장용인 경우 생략 가능)</span></label>
           <input class="letter-input" id="fm_nick" type="text" placeholder="닉네임 / 플랫폼명을 적어주세요">
         </div>
-
         <div class="letter-field">
           <label class="letter-label">03 · 신청 항목</label>
           <input class="letter-input" id="fm_item" type="text" placeholder="신청하실 항목을 적어주세요">
         </div>
-
         <div class="letter-field">
           <label class="letter-label">04 · 샘플 공개 여부</label>
           <select class="letter-select" id="fm_sample">
@@ -598,7 +653,6 @@ section { margin-bottom: 56px; }
             <option>비공개 (추가금 발생)</option>
           </select>
         </div>
-
         <div class="letter-field">
           <label class="letter-label">05 · 방송 작업 여부</label>
           <select class="letter-select" id="fm_broadcast">
@@ -607,28 +661,20 @@ section { margin-bottom: 56px; }
             <option>불가능</option>
           </select>
         </div>
-
         <div class="letter-field">
           <label class="letter-label">06 · 캐릭터 정보</label>
           <textarea class="letter-textarea" id="fm_chara" placeholder="그림 or 사진 URL을 첨부해주세요&#10;정확한 색상을 원하실 경우 팔레트도 함께 첨부해주세요"></textarea>
         </div>
-
         <div class="letter-field">
           <label class="letter-label">07 · 요청사항</label>
           <textarea class="letter-textarea" id="fm_request" placeholder="구도, 꼭 들어가야 하는 부분, 송곳니 등 자세히 적어주세요"></textarea>
         </div>
-
-        <div class="letter-closing">
-          From. 의뢰인 드림 🌸
-        </div>
-
+        <div class="letter-closing">From. 의뢰인 드림 🌸</div>
       </div>
-
       <div class="copy-wrap">
         <div class="copy-toast" id="copyToast">📋 복사 완료!</div>
         <button class="copy-btn" onclick="copyForm()">✉️ 신청 양식 복사하기</button>
       </div>
-
     </div>
   </section>
 
@@ -638,17 +684,13 @@ section { margin-bottom: 56px; }
   <section>
     <div class="section-title">프로필</div>
     <div class="profile-card">
-      <!-- 프로필 이미지: src에 이미지 URL 넣거나, 이모지 그대로 두세요 -->
       <div class="profile-avatar">🌸</div>
       <div class="profile-info">
-        <!-- ★ 닉네임 수정 -->
         <div class="profile-name">안제이 작가</div>
-        <!-- ★ 소개 문구 수정 -->
         <div class="profile-desc">
           안녕하세요! 귀엽고 아기자기한 그림을 그리는 작가입니다 🌸<br>
           일러스트, 버추얼, 캐릭터 디자인을 주로 작업합니다.
         </div>
-        <!-- ★ 태그 수정/추가/삭제 -->
         <div class="tag-wrap">
           <span class="tag">일러스트</span>
           <span class="tag">캐릭터 디자인</span>
@@ -659,7 +701,6 @@ section { margin-bottom: 56px; }
       </div>
     </div>
   </section>
-
 
   <!-- ============================
     SECTION 3 : 안내사항
@@ -702,23 +743,16 @@ section { margin-bottom: 56px; }
     </div>
   </section>
 
-
   <section>
     <div class="section-title">가격 안내</div>
     <div class="menu-board">
-
-      <!-- 메뉴판 헤더 -->
       <div class="menu-board-header">
         <span class="menu-deco">✦</span>
         <span class="menu-board-title">PRICE MENU</span>
         <span class="menu-deco">✦</span>
       </div>
-
-      <!-- ★ 카테고리 1 -->
       <div class="menu-section">
         <div class="menu-section-title">ILLUST</div>
-
-        <!-- ★ 메뉴 항목: 복붙해서 늘릴 수 있어요 -->
         <div class="menu-row">
           <div class="menu-row-left">
             <div class="menu-item-name">반신 (채색)</div>
@@ -727,7 +761,6 @@ section { margin-bottom: 56px; }
           <div class="menu-item-dots"></div>
           <div class="menu-item-price">30,000원~</div>
         </div>
-
         <div class="menu-row">
           <div class="menu-row-left">
             <div class="menu-item-name">전신 (채색)</div>
@@ -736,7 +769,6 @@ section { margin-bottom: 56px; }
           <div class="menu-item-dots"></div>
           <div class="menu-item-price">50,000원~</div>
         </div>
-
         <div class="menu-row">
           <div class="menu-row-left">
             <div class="menu-item-name">전신 프리미엄</div>
@@ -746,13 +778,9 @@ section { margin-bottom: 56px; }
           <div class="menu-item-price">80,000원~</div>
         </div>
       </div>
-
       <div class="menu-divider"></div>
-
-      <!-- ★ 카테고리 2 -->
       <div class="menu-section">
         <div class="menu-section-title">CHARACTER</div>
-
         <div class="menu-row">
           <div class="menu-row-left">
             <div class="menu-item-name">SD 캐릭터</div>
@@ -761,7 +789,6 @@ section { margin-bottom: 56px; }
           <div class="menu-item-dots"></div>
           <div class="menu-item-price">25,000원~</div>
         </div>
-
         <div class="menu-row">
           <div class="menu-row-left">
             <div class="menu-item-name">이모티콘</div>
@@ -771,14 +798,11 @@ section { margin-bottom: 56px; }
           <div class="menu-item-price">협의</div>
         </div>
       </div>
-
       <div class="menu-footer">
         ✦ 상업적 이용은 추가 금액이 발생합니다 · 자세한 견적은 문의 부탁드려요 ✦
       </div>
-
     </div>
   </section>
-
 
   <!-- ============================
     SECTION 4 : 작품 상세 안내
@@ -797,10 +821,10 @@ section { margin-bottom: 56px; }
           </div>
         </div>
         <div class="work-card-body">
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17725435630_Re.jpg" alt="유튜브 표정소스 샘플1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17744514320_Re.jpg" alt="유튜브 표정소스 샘플2" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17725435630_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17744514320_Re.jpg"
+          ]'></div>
         </div>
       </div>
 
@@ -821,16 +845,16 @@ section { margin-bottom: 56px; }
               <li>신발 안 그립니다</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713409630_Re.jpg" alt="냥젤리 고정틀" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748910560_Re.jpg" alt="냥젤리 고정틀 구성" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713409630_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748910560_Re.jpg"
+          ]'></div>
           <div class="work-add-label">✦ 추가 옵션</div>
-          <div class="work-imgs-row">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408730.gif" alt="바보털 모션" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408731.gif" alt="동물 귀꼬리 모션" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408732.gif" alt="오브젝트 움직임" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408730.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408731.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713408732.gif"
+          ]'></div>
         </div>
       </div>
 
@@ -851,10 +875,10 @@ section { margin-bottom: 56px; }
               <li>디테일한 장식은 단순화 혹은 생략될 수 있습니다</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17618336590_Re.jpg" alt="속인거니 고정틀1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650285040_Re.jpg" alt="속인거니 고정틀2" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17618336590_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650285040_Re.jpg"
+          ]'></div>
         </div>
       </div>
 
@@ -877,11 +901,11 @@ section { margin-bottom: 56px; }
               <li style="color:#e86cac;font-weight:700;">작가가 실수한 부분 외 수정받지 않습니다</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404859790.gif" alt="망충망충해 GIF1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404860140.gif" alt="망충망충해 GIF2" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17414234820_Re.jpg" alt="망충망충해 샘플" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404859790.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17404860140.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17414234820_Re.jpg"
+          ]'></div>
         </div>
       </div>
 
@@ -905,10 +929,10 @@ section { margin-bottom: 56px; }
               <li>눈 타입 2개 다 원할 시 추가금 ×2.0</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566368890.gif" alt="망충이 기다려 GIF1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566402110.gif" alt="망충이 기다려 GIF2" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566368890.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566402110.gif"
+          ]'></div>
           <div class="work-add-label">✦ 꼬리 모션 추가</div>
           <div class="work-desc">
             <ul>
@@ -918,12 +942,12 @@ section { margin-bottom: 56px; }
               <li>꼬리 대신 바보털 움직임 추가 가능 +2.0</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566330790.gif" alt="꼬리 모션1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17567158730.gif" alt="꼬리 모션2" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17633846270_Re.jpg" alt="바보털 샘플1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17734813830_Re.jpg" alt="바보털 샘플2" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17566330790.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17567158730.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17633846270_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17734813830_Re.jpg"
+          ]'></div>
         </div>
       </div>
 
@@ -944,18 +968,18 @@ section { margin-bottom: 56px; }
               <li>짚톡 추가 +2.0</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275400_Re.jpg" alt="프로필 고정틀" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275400_Re.jpg"
+          ]'></div>
           <div class="work-add-label">✦ 짚톡 추가 샘플</div>
-          <div class="work-imgs-row grid-2-columns">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275270.gif" alt="짚톡1" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275271.gif" alt="짚톡2" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275272.gif" alt="짚톡3" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275273.gif" alt="짚톡4" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275840.gif" alt="짚톡5" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275841.gif" alt="짚톡6" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275270.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275271.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275272.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275273.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275840.gif",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650275841.gif"
+          ]'></div>
         </div>
       </div>
 
@@ -975,13 +999,13 @@ section { margin-bottom: 56px; }
               <li>제일 최신 그림체 참고 권장</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684694060_Re.jpg" alt="자막바 최신" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310431_Re.jpg" alt="자막바 1년전" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310430_Re.jpg" alt="자막바 1년전" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310432_Re.jpg" alt="자막바 1년전" onclick="openLightbox(this.src)">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713407050_Re.jpg" alt="자막바 샘플" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684694060_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310431_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310430_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17460310432_Re.jpg",
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17713407050_Re.jpg"
+          ]'></div>
         </div>
       </div>
 
@@ -992,36 +1016,33 @@ section { margin-bottom: 56px; }
         </div>
         <div class="work-card-body">
           <div class="work-add-label">✦ 굿즈 일러스트</div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650689580_Re.jpg" alt="굿즈 일러스트" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650689580_Re.jpg"
+          ]'></div>
           <div class="work-add-label">✦ 고정틀 외 자유 짚톡</div>
           <div class="work-desc">
             <ul>
               <li>본인이 원하는 구도로 작업 진행, 원하시는 구도를 말씀해 주셔야 합니다</li>
             </ul>
           </div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684692261_Re.jpg" alt="자유 짚톡" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17684692261_Re.jpg"
+          ]'></div>
           <div class="work-add-label">✦ 구독티콘</div>
-          <div class="work-imgs">
-            <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748523280.gif" alt="구독티콘" onclick="openLightbox(this.src)">
-          </div>
+          <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17748523280.gif"
+          ]'></div>
         </div>
       </div>
 
     </div>
   </section>
 
-
   <!-- ============================
     SECTION 5 : 포트폴리오
   ============================= -->
   <section>
     <div class="section-title">포트폴리오</div>
-
-    <!-- ★ 탭 버튼 — filterCategory('카테고리명') 맞춰서 수정 -->
     <div class="pf-tabs">
       <button class="pf-tab active" onclick="filterCat('ALL')">ALL</button>
       <button class="pf-tab" onclick="filterCat('일러스트')">일러스트</button>
@@ -1030,9 +1051,7 @@ section { margin-bottom: 56px; }
       <button class="pf-tab" onclick="filterCat('SD')">SD</button>
       <button class="pf-tab" onclick="filterCat('이모티콘')">이모티콘</button>
     </div>
-
     <div class="pf-grid" id="pfGrid"></div>
-
     <div class="pagination">
       <button class="pg-btn" onclick="changePg(curPage - 1)">&#8249;</button>
       <div id="pgNums" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;"></div>
@@ -1040,14 +1059,11 @@ section { margin-bottom: 56px; }
     </div>
   </section>
 
-
 </div><!-- /container -->
-
 
 <script>
 /* ============================
   iframe 높이 자동 조절
-  (아트머그 부모 페이지에 높이 전달)
 ============================= */
 function sendHeight() {
   window.parent.postMessage({ type: 'resize', height: document.documentElement.scrollHeight }, '*');
@@ -1061,26 +1077,113 @@ if (window.ResizeObserver) {
 
 /* ============================
   이미지 라이트박스
-  (아트머그 부모 페이지에 요청)
 ============================= */
 function openLightbox(src) {
   window.parent.postMessage({ type: 'openLightbox', src: src }, '*');
 }
 
+/* ============================
+  ✨ 이미지 슬라이더 초기화
+  — .img-slider[data-images] 를 모두 찾아서 슬라이더로 만들어요
+============================= */
+function initSliders() {
+  document.querySelectorAll('.img-slider').forEach(slider => {
+    const images = JSON.parse(slider.dataset.images || '[]');
+    if (images.length === 0) return;
+
+    // 이미지 1장이면 single 클래스 추가 (버튼·도트 숨김)
+    if (images.length === 1) slider.classList.add('single');
+
+    let cur = 0;
+
+    // ── 구조 생성 ──
+    const viewport = document.createElement('div');
+    viewport.className = 'slider-viewport';
+
+    const track = document.createElement('div');
+    track.className = 'slider-track';
+
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `이미지 ${i + 1}`;
+      img.loading = 'lazy';
+      img.onclick = () => openLightbox(src);
+      track.appendChild(img);
+    });
+    viewport.appendChild(track);
+
+    // 이전/다음 버튼
+    const btnPrev = document.createElement('button');
+    btnPrev.className = 'slider-btn prev';
+    btnPrev.innerHTML = '&#8249;';
+    btnPrev.setAttribute('aria-label', '이전 이미지');
+
+    const btnNext = document.createElement('button');
+    btnNext.className = 'slider-btn next';
+    btnNext.innerHTML = '&#8250;';
+    btnNext.setAttribute('aria-label', '다음 이미지');
+
+    // 하단 footer (도트 + 카운터)
+    const footer = document.createElement('div');
+    footer.className = 'slider-footer';
+
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'slider-dots';
+
+    const counter = document.createElement('span');
+    counter.className = 'slider-count';
+
+    const dots = images.map((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsWrap.appendChild(d);
+      return d;
+    });
+
+    footer.appendChild(dotsWrap);
+    footer.appendChild(counter);
+
+    slider.appendChild(viewport);
+    slider.appendChild(btnPrev);
+    slider.appendChild(btnNext);
+    slider.appendChild(footer);
+
+    // ── 슬라이드 함수 ──
+    function updateCounter() {
+      counter.textContent = `${cur + 1} / ${images.length}`;
+    }
+
+    function goTo(idx) {
+      cur = Math.max(0, Math.min(idx, images.length - 1));
+      track.style.transform = `translateX(-${cur * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+      btnPrev.disabled = cur === 0;
+      btnNext.disabled = cur === images.length - 1;
+      updateCounter();
+    }
+
+    btnPrev.onclick = () => goTo(cur - 1);
+    btnNext.onclick = () => goTo(cur + 1);
+
+    // 터치 스와이프 지원
+    let touchStartX = 0;
+    viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+    });
+
+    goTo(0); // 초기화
+  });
+}
 
 /* ============================
   포트폴리오 데이터
-  ★ 여기에 직접 작품을 추가하세요!
-  형식: { cat: '카테고리', title: '제목', img: '이미지URL' }
 ============================= */
 const pfData = [
-  /* ── 예시 데이터 (실제 이미지 URL로 교체하세요) ──
-  { cat: '일러스트', title: '봄 일러스트',   img: 'https://이미지주소.jpg' },
-  { cat: '캐릭터',   title: '오리지널 캐릭터', img: 'https://이미지주소.jpg' },
-  { cat: 'SD',       title: 'SD 캐릭터',      img: 'https://이미지주소.jpg' },
-  */
-
-  /* ── 실제 데이터를 아래에 추가해 주세요 ── */
+  /* 예시: { cat: '일러스트', title: '봄 일러스트', img: 'https://...' } */
 ];
 
 let curCat  = 'ALL';
@@ -1115,15 +1218,12 @@ function renderPf() {
         <div class="pf-title">${i.title}</div>
       </div>
     `).join('');
-
-    /* 빈 칸 채우기 (그리드 정렬용) */
     const rest = perPage - paged.length;
     for (let i = 0; i < rest; i++) {
       grid.innerHTML += '<div class="pf-item" style="visibility:hidden;"><div class="pf-thumb"></div></div>';
     }
   }
 
-  /* 페이지 번호 */
   pgNums.innerHTML = '';
   for (let i = 1; i <= total; i++) {
     pgNums.innerHTML += `<div class="pg-num ${i === curPage ? 'active' : ''}" onclick="changePg(${i})">${i}</div>`;
@@ -1139,42 +1239,7 @@ function changePg(p) {
 }
 
 renderPf();
-
-
-/* ============================
-  문의 양식 복사
-============================= */
-async function copyForm() {
-  const use       = document.getElementById('fm_use').value       || '없음';
-  const nick      = document.getElementById('fm_nick').value      || '없음';
-  const item      = document.getElementById('fm_item').value      || '없음';
-  const sample    = document.getElementById('fm_sample').value    || '없음';
-  const broadcast = document.getElementById('fm_broadcast').value || '없음';
-  const chara     = document.getElementById('fm_chara').value     || '없음';
-  const request   = document.getElementById('fm_request').value   || '없음';
-
-  const text = `[안제이 작가 신청 양식]
-
-1. 방송용 / 개인소장용 : ${use}
-2. 닉네임 / 플랫폼 : ${nick}
-3. 신청 항목 : ${item}
-4. 샘플 공개 여부 : ${sample}
-5. 방송 작업 : ${broadcast}
-6. 캐릭터 정보 : 
-${chara}
-7. 요청사항 : 
-${request}`;
-
-  try {
-    await navigator.clipboard.writeText(text);
-    const toast = document.getElementById('copyToast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1800);
-  } catch (e) {
-    alert('복사가 차단되었습니다.\niframe에 allow="clipboard-write" 속성을 추가해주세요.');
-  }
-}
+initSliders(); // ← 슬라이더 초기화
 </script>
-
 </body>
 </html>
