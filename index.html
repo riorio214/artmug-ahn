@@ -523,10 +523,9 @@ section { margin-bottom: 56px; }
   flex-shrink: 0;
   display: block;
   object-fit: contain;
-  max-height: 420px;
-  height: auto;
+  max-height: 480px;
   background: var(--pink-light);
-  cursor: zoom-in;
+  cursor: pointer;
   transition: opacity 0.2s;
 }
 .slider-track img:hover { opacity: 0.9; }
@@ -729,10 +728,10 @@ section { margin-bottom: 56px; }
         <li>작업이 방송에서 진행될 수 있습니다. (공개 작업)</li>
         <li>비공개 작업도 가능합니다. 샘플 비공개 요청 시 추가금이 발생합니다.</li>
       </ul>
-    </div>
-    <div class="img-slider" style="margin-top:14px;" data-images='[
-      "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58015/17770145230_Re.jpg"
-    ]'></div>
+      <div class="img-slider" data-images='[
+            "https://artmugfile6.mycafe24.com/image/up_img/detail/1/goods_17248/17650689580_Re.jpg"
+          ]'></div>
+        </div>
   </section>
 
   <section>
@@ -1080,52 +1079,11 @@ if (window.ResizeObserver) {
 }
 
 /* ============================
-  ✨ 라이트박스
-  — 라이트박스는 부모 페이지에서 담당
-    여기선 클릭 시 메시지만 보냄
+  이미지 라이트박스
 ============================= */
-let lbImages = [];
-let lbIndex  = 0;
-
-function openLightbox(src, images) {
-  lbImages = images && images.length ? images : [src];
-  lbIndex  = lbImages.indexOf(src);
-  if (lbIndex < 0) lbIndex = 0;
-  // 부모 페이지에 현재 이미지 + 전체 목록 전달
-  window.parent.postMessage({
-    type:   'openLightbox',
-    src:    lbImages[lbIndex],
-    images: lbImages,
-    index:  lbIndex
-  }, '*');
+function openLightbox(src) {
+  window.parent.postMessage({ type: 'openLightbox', src: src }, '*');
 }
-
-// 부모에서 이전/다음 요청을 받을 경우 대응 (선택적)
-window.addEventListener('message', e => {
-  if (!e.data) return;
-  if (e.data.type === 'lbNav') {
-    lbIndex = Math.max(0, Math.min(lbIndex + e.data.dir, lbImages.length - 1));
-    window.parent.postMessage({
-      type:   'lbUpdate',
-      src:    lbImages[lbIndex],
-      index:  lbIndex,
-      total:  lbImages.length
-    }, '*');
-  }
-});
-
-// 키보드 지원 (← →) — iframe 포커스 있을 때
-document.addEventListener('keydown', e => {
-  if (lbImages.length === 0) return;
-  if (e.key === 'ArrowLeft')  {
-    lbIndex = Math.max(0, lbIndex - 1);
-    window.parent.postMessage({ type: 'lbUpdate', src: lbImages[lbIndex], index: lbIndex, total: lbImages.length }, '*');
-  }
-  if (e.key === 'ArrowRight') {
-    lbIndex = Math.min(lbImages.length - 1, lbIndex + 1);
-    window.parent.postMessage({ type: 'lbUpdate', src: lbImages[lbIndex], index: lbIndex, total: lbImages.length }, '*');
-  }
-});
 
 /* ============================
   ✨ 이미지 슬라이더 초기화
@@ -1153,7 +1111,7 @@ function initSliders() {
       img.src = src;
       img.alt = `이미지 ${i + 1}`;
       img.loading = 'lazy';
-      img.onclick = () => openLightbox(src, images);
+      img.onclick = () => openLightbox(src);
       track.appendChild(img);
     });
     viewport.appendChild(track);
