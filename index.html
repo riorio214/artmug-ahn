@@ -523,9 +523,10 @@ section { margin-bottom: 56px; }
   flex-shrink: 0;
   display: block;
   object-fit: contain;
-  max-height: 480px;
+  max-height: 420px;
+  height: auto;
   background: var(--pink-light);
-  cursor: pointer;
+  cursor: zoom-in;
   transition: opacity 0.2s;
 }
 .slider-track img:hover { opacity: 0.9; }
@@ -606,36 +607,46 @@ section { margin-bottom: 56px; }
 .lightbox-overlay {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.82);
+  top: 0; left: 0; right: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
   z-index: 9999;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px);
-  animation: lbFadeIn 0.2s ease;
+  backdrop-filter: blur(6px);
 }
 .lightbox-overlay.open {
   display: flex;
 }
-@keyframes lbFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.lightbox-img-wrap {
+.lightbox-inner {
   position: relative;
-  max-width: 92vw;
-  max-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 60px 70px;
+  box-sizing: border-box;
+}
+.lightbox-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
 }
 .lightbox-img-wrap img {
-  max-width: 90vw;
-  max-height: 88vh;
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
   border-radius: 14px;
-  box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 48px rgba(0,0,0,0.6);
   object-fit: contain;
   animation: lbZoomIn 0.22s cubic-bezier(0.4,0,0.2,1);
+  display: block;
+}
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes lbZoomIn {
   from { transform: scale(0.88); opacity: 0; }
@@ -643,8 +654,8 @@ section { margin-bottom: 56px; }
 }
 /* 닫기 버튼 */
 .lightbox-close {
-  position: fixed;
-  top: 18px; right: 20px;
+  position: absolute;
+  top: 16px; right: 16px;
   width: 40px; height: 40px;
   background: rgba(255,255,255,0.15);
   border: 1.5px solid rgba(255,255,255,0.3);
@@ -657,6 +668,7 @@ section { margin-bottom: 56px; }
   justify-content: center;
   transition: 0.2s;
   line-height: 1;
+  z-index: 10;
 }
 .lightbox-close:hover {
   background: var(--pink-main);
@@ -664,7 +676,7 @@ section { margin-bottom: 56px; }
 }
 /* 라이트박스 이전/다음 버튼 */
 .lightbox-nav {
-  position: fixed;
+  position: absolute;
   top: 50%; transform: translateY(-50%);
   width: 44px; height: 44px;
   background: rgba(255,255,255,0.15);
@@ -678,6 +690,7 @@ section { margin-bottom: 56px; }
   justify-content: center;
   transition: 0.2s;
   line-height: 1;
+  z-index: 10;
 }
 .lightbox-nav:hover {
   background: var(--pink-main);
@@ -688,8 +701,8 @@ section { margin-bottom: 56px; }
 .lightbox-nav:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
 /* 하단 카운터 */
 .lightbox-counter {
-  position: fixed;
-  bottom: 20px; left: 50%;
+  position: absolute;
+  bottom: 16px; left: 50%;
   transform: translateX(-50%);
   color: rgba(255,255,255,0.7);
   font-size: 12px;
@@ -827,7 +840,9 @@ section { margin-bottom: 56px; }
         <li>비공개 작업도 가능합니다. 샘플 비공개 요청 시 추가금이 발생합니다.</li>
       </ul>
     </div>
-    </div>
+    <div class="img-slider" style="margin-top:14px;" data-images='[
+      "https://artmugfile5.cafe24.com/image/up_img/detail/5/goods_58015/17770145230_Re.jpg"
+    ]'></div>
   </section>
 
   <section>
@@ -1162,13 +1177,15 @@ section { margin-bottom: 56px; }
 
 <!-- ✨ 라이트박스 오버레이 -->
 <div class="lightbox-overlay" id="lightbox" onclick="lbClickOutside(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <button class="lightbox-nav prev" id="lbPrev" onclick="lbNav(-1)">&#8249;</button>
-  <div class="lightbox-img-wrap">
-    <img id="lbImg" src="" alt="확대 이미지">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav prev" id="lbPrev" onclick="lbNav(-1)">&#8249;</button>
+    <div class="lightbox-img-wrap">
+      <img id="lbImg" src="" alt="확대 이미지">
+    </div>
+    <button class="lightbox-nav next" id="lbNext" onclick="lbNav(1)">&#8250;</button>
+    <div class="lightbox-counter" id="lbCounter"></div>
   </div>
-  <button class="lightbox-nav next" id="lbNext" onclick="lbNav(1)">&#8250;</button>
-  <div class="lightbox-counter" id="lbCounter"></div>
 </div>
 
 <script>
@@ -1199,11 +1216,13 @@ function openLightbox(src, images) {
   lbRender();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
 }
 
 function lbRender() {
@@ -1220,7 +1239,8 @@ function lbNav(dir) {
 }
 
 function lbClickOutside(e) {
-  if (e.target === document.getElementById('lightbox')) closeLightbox();
+  if (e.target === document.getElementById('lightbox') ||
+      e.target.classList.contains('lightbox-inner')) closeLightbox();
 }
 
 // 키보드 지원 (← → Esc)
