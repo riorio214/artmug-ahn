@@ -761,66 +761,6 @@ section { margin-bottom: 56px; }
     </div>
   </section>
 
-  <section>
-    <div class="section-title">가격 안내</div>
-    <div class="menu-board">
-      <div class="menu-board-header">
-        <span class="menu-deco">✦</span>
-        <span class="menu-board-title">PRICE MENU</span>
-        <span class="menu-deco">✦</span>
-      </div>
-      <div class="menu-section">
-        <div class="menu-section-title">ILLUST</div>
-        <div class="menu-row">
-          <div class="menu-row-left">
-            <div class="menu-item-name">반신 (채색)</div>
-            <div class="menu-item-desc">배경 단색 포함 · 수정 2회</div>
-          </div>
-          <div class="menu-item-dots"></div>
-          <div class="menu-item-price">30,000원~</div>
-        </div>
-        <div class="menu-row">
-          <div class="menu-row-left">
-            <div class="menu-item-name">전신 (채색)</div>
-            <div class="menu-item-desc">배경 일러스트 포함 · 수정 2회</div>
-          </div>
-          <div class="menu-item-dots"></div>
-          <div class="menu-item-price">50,000원~</div>
-        </div>
-        <div class="menu-row">
-          <div class="menu-row-left">
-            <div class="menu-item-name">전신 프리미엄</div>
-            <div class="menu-item-desc">상세 배경 포함 · 수정 3회</div>
-          </div>
-          <div class="menu-item-dots"></div>
-          <div class="menu-item-price">80,000원~</div>
-        </div>
-      </div>
-      <div class="menu-divider"></div>
-      <div class="menu-section">
-        <div class="menu-section-title">CHARACTER</div>
-        <div class="menu-row">
-          <div class="menu-row-left">
-            <div class="menu-item-name">SD 캐릭터</div>
-            <div class="menu-item-desc">귀여운 SD 전신 · 수정 2회</div>
-          </div>
-          <div class="menu-item-dots"></div>
-          <div class="menu-item-price">25,000원~</div>
-        </div>
-        <div class="menu-row">
-          <div class="menu-row-left">
-            <div class="menu-item-name">이모티콘</div>
-            <div class="menu-item-desc">개수·용도에 따라 협의</div>
-          </div>
-          <div class="menu-item-dots"></div>
-          <div class="menu-item-price">협의</div>
-        </div>
-      </div>
-      <div class="menu-footer">
-        ✦ 상업적 이용은 추가 금액이 발생합니다 · 자세한 견적은 문의 부탁드려요 ✦
-      </div>
-    </div>
-  </section>
 
   <!-- ============================
     SECTION 4 : 작품 상세 안내
@@ -1056,26 +996,7 @@ section { margin-bottom: 56px; }
     </div>
   </section>
 
-  <!-- ============================
-    SECTION 5 : 포트폴리오
-  ============================= -->
-  <section>
-    <div class="section-title">포트폴리오</div>
-    <div class="pf-tabs">
-      <button class="pf-tab active" onclick="filterCat('ALL')">ALL</button>
-      <button class="pf-tab" onclick="filterCat('일러스트')">일러스트</button>
-      <button class="pf-tab" onclick="filterCat('캐릭터')">캐릭터</button>
-      <button class="pf-tab" onclick="filterCat('버추얼')">버추얼</button>
-      <button class="pf-tab" onclick="filterCat('SD')">SD</button>
-      <button class="pf-tab" onclick="filterCat('이모티콘')">이모티콘</button>
-    </div>
-    <div class="pf-grid" id="pfGrid"></div>
-    <div class="pagination">
-      <button class="pg-btn" onclick="changePg(curPage - 1)">&#8249;</button>
-      <div id="pgNums" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;"></div>
-      <button class="pg-btn" onclick="changePg(curPage + 1)">&#8250;</button>
-    </div>
-  </section>
+
 
 </div><!-- /container -->
 
@@ -1223,66 +1144,6 @@ function initSliders() {
   });
 }
 
-/* ============================
-  포트폴리오 데이터
-============================= */
-const pfData = [];
-
-let curCat  = 'ALL';
-let curPage = 1;
-const perPage = 9;
-
-function filterCat(cat) {
-  curCat  = cat;
-  curPage = 1;
-  document.querySelectorAll('.pf-tab').forEach(b => {
-    b.classList.toggle('active', b.textContent === cat);
-  });
-  renderPf();
-}
-
-function renderPf() {
-  const grid    = document.getElementById('pfGrid');
-  const pgNums  = document.getElementById('pgNums');
-  const filtered = curCat === 'ALL' ? pfData : pfData.filter(i => i.cat === curCat);
-  const total    = Math.ceil(filtered.length / perPage) || 1;
-  const paged    = filtered.slice((curPage - 1) * perPage, curPage * perPage);
-
-  if (pfData.length === 0) {
-    grid.innerHTML = '<div style="grid-column:span 3;text-align:center;padding:60px 0;color:#ccc;font-size:14px;">작품을 추가해 주세요 🌸</div>';
-  } else {
-    grid.innerHTML = paged.map(i => `
-      <!-- ✅ 여기 수정됨 -->
-      <div class="pf-item" onclick="window.open('${i.img}', '_blank')">
-        <div class="pf-thumb">
-          <div class="pf-cat-label">${i.cat}</div>
-          <img src="${i.img}" alt="${i.title}" loading="lazy">
-        </div>
-        <div class="pf-title">${i.title}</div>
-      </div>
-    `).join('');
-
-    const rest = perPage - paged.length;
-    for (let i = 0; i < rest; i++) {
-      grid.innerHTML += '<div class="pf-item" style="visibility:hidden;"><div class="pf-thumb"></div></div>';
-    }
-  }
-
-  pgNums.innerHTML = '';
-  for (let i = 1; i <= total; i++) {
-    pgNums.innerHTML += `<div class="pg-num ${i === curPage ? 'active' : ''}" onclick="changePg(${i})">${i}</div>`;
-  }
-}
-
-function changePg(p) {
-  const filtered = curCat === 'ALL' ? pfData : pfData.filter(i => i.cat === curCat);
-  const total    = Math.ceil(filtered.length / perPage) || 1;
-  if (p < 1 || p > total) return;
-  curPage = p;
-  renderPf();
-}
-
-renderPf();
 initSliders();
 /* ============================
   문의 양식 복사
